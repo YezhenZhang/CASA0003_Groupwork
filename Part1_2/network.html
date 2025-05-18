@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GBA Multi-Modal Transport Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+ <style>
+  /* === 全局防止鼠标框选/白框 === */
+  * {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #000;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: default;
+  }
+
+  #map {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+  }
+
+  .control-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: rgba(30, 30, 30, 0.85);
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    max-width: 220px;
+  }
+
+  .control-panel h3 {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+
+  .control-panel p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .control-panel label {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .legend {
+    margin-top: 12px;
+    border-top: 1px solid gray;
+    padding-top: 6px;
+    font-size: 13px;
+  }
+
+  .legend div {
+    margin-bottom: 4px;
+  }
+
+  .legend span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+
+  .legend .line-symbol {
+    width: 20px;
+    height: 3px;
+    border-radius: 0;
+  }
+
+  .city-label-tooltip {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: 1px solid #ccc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .leaflet-container {
+    background: #1b1b1b !important;
+  }
+</style>
+
+</head>
+<body>
+<div id="map"></div>
+<div class="control-panel">
+  <h3>Transport Network</h3>
+
+  <!-- ✅ 两端对齐 -->
+  <p style="font-size: 13px; margin-bottom: 12px; line-height: 1.4; text-align: justify;">
+  This map shows the network of highways and stations of various transport modes in the Greater Bay Area.
+</p>
+
+
+  <!-- ❌ 正常左对齐 -->
+  <p style="font-size: 12.5px; line-height: 1.4; margin-bottom: 10px;">
+    <strong>Source from:</strong> 
+    <a href="https://www.openstreetmap.org/" target="_blank" style="color:#ccc;">Openstreetmap</a>, 
+    <a href="https://www.google.com/maps" target="_blank" style="color:#ccc;">Google Map</a>, 
+    <a href="https://gaode.com" target="_blank" style="color:#ccc;">Auto Navi(Gaode)</a>, 
+    <a href="https://ourairports.com" target="_blank" style="color:#ccc;">Ourairports</a>, 
+    <a href="https://lbs.amap.com/api" target="_blank" style="color:#ccc;">Auto Navi APi</a>, 
+    <a href="https://gadm.org/" target="_blank" style="color:#ccc;">GADM</a>
+  </p>
+
+  <label><input type="checkbox" id="airport" checked /> Airport</label>
+  <label><input type="checkbox" id="port" checked /> Port</label>
+  <label><input type="checkbox" id="coach" checked /> Coach Station</label>
+  <label><input type="checkbox" id="railway" checked /> Railway Station</label>
+  <label><input type="checkbox" id="highway" checked /> Highway</label>
+
+  <div class="legend">
+    <strong>Legend</strong>
+    <div><span style="background-color: #fff200;"></span>Airport</div>
+    <div><span style="background-color: #86f4f0;"></span>Port</div>
+    <div><span style="background-color: #e94f6e;"></span>Coach Station</div>
+    <div><span style="background-color: #8de577;"></span>Railway Station</div>
+    <div><span class="line-symbol" style="background-color: #bdc3c7;"></span>Highway</div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(async function () {
+  // 禁用选区、拖动、框选
+  document.addEventListener("dragstart", e => e.preventDefault(), true);
+  document.addEventListener("selectstart", e => e.preventDefault(), true);
+  document.addEventListener("mousedown", e => {
+    if (e.buttons === 1) e.preventDefault();  // 拦截左键框选
+  }, true);
+
+  const map = L.map("map", {
+    zoomControl: false
+  });
+
+  map.setView([23.1, 113.3], 9);  // 初始视图设置
+
+  L.control.zoom({ position: "topright" }).addTo(map);
+
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: "abcd", maxZoom: 19
+  }).addTo(map);
+
+  function getRadius(zoom) {
+    return Math.min(Math.max(zoom - 3, 6), 14);
+  }
+
+  let translationDict = {};
+  const translationData = await fetch("station_translation_full.json").then(res => res.json());
+  translationDict = translationData.reduce((dict, item) => {
+    const type = item.Type.trim().toLowerCase();
+    if (!dict[type]) dict[type] = {};
+    dict[type][item.Chinese.trim()] = item.English;
+    return dict;
+  }, {});
+
+  function getTranslationKey(type) {
+    switch (type) {
+      case "airport": return "airport";
+      case "port": return "port";
+      case "coach": return "coach station";
+      case "railway": return "railway station";
+      default: return type;
+    }
+  }
+
+  function loadGeoJSON(url, style, color, type) {
+    return fetch(url)
+      .then(res => res.json())
+      .then(data =>
+        L.geoJSON(data, {
+          style: style,
+          pointToLayer: (feature, latlng) =>
+            L.circleMarker(latlng, {
+              radius: getRadius(map.getZoom()),
+              color: "#bbb",
+              weight: 1.2,
+              stroke: true,
+              fillColor: color,
+              fillOpacity: 0.6
+            }),
+          onEachFeature: function (feature, layer) {
+            const keyField = type === "railway" ? "站名简" : "Name";
+            const rawName = (feature.properties[keyField] || "").trim();
+            const dictKey = getTranslationKey(type);
+            const translated = translationDict[dictKey]?.[rawName];
+            const tooltipText = translated || rawName;
+
+            if (tooltipText) {
+              layer.bindTooltip(tooltipText, {
+                direction: "top",
+                offset: [0, -6],
+                className: "station-tooltip",
+                permanent: false
+              });
+            }
+          }
+        })
+      );
+  }
+
+  fetch("GBA_merged_boundary.geojson")
+    .then(res => res.json())
+    .then(data => {
+      const boundaryLayer = L.geoJSON(data, {
+        style: {
+          color: "#ffffff", weight: 1.5, opacity: 0, fillOpacity: 0
+        },
+        onEachFeature: (feature, layer) => {
+          const name = feature.properties.NAME_2 || feature.properties.name;
+
+          // ✅ 悬停：显示城市名称
+          layer.on("mouseover", function () {
+            this.setStyle({ color: "#d6a3ff", weight: 1.5, opacity: 0.7, fillOpacity: 0.08 });
+            this.bindTooltip(name, {
+              direction: "center", className: "city-label-tooltip"
+            }).openTooltip();
+          });
+
+          layer.on("mouseout", function () {
+            boundaryLayer.resetStyle(this);
+            this.closeTooltip();
+          });
+
+          // ✅ 点击：飞跃至该行政区中心
+          layer.on("click", function () {
+            const bounds = layer.getBounds();
+            const center = bounds.getCenter();
+            map.flyTo(center, 10, {
+              animate: true,
+              duration: 1.5
+            });
+          });
+        }
+      }).addTo(map);
+      boundaryLayer.bringToBack();
+    });
+
+  const [a, p, c, r, h] = await Promise.all([
+    loadGeoJSON("GBA_airport.geojson", null, "#fff200", "airport"),
+    loadGeoJSON("GBA_port.geojson", null, "#86f4f0", "port"),
+    loadGeoJSON("GBA_coach_station.geojson", null, "#e94f6e", "coach"),
+    loadGeoJSON("GBA_railway_station.geojson", null, "#8de577", "railway"),
+    loadGeoJSON("GBA_highways_geometry_only.geojson", {
+      color: "#bdc3c7", weight: 1.0, opacity: 0.4
+    }, null)
+  ]);
+
+  let airportLayer = a, portLayer = p, coachLayer = c, railwayLayer = r, highwayLayer = h;
+  [airportLayer, portLayer, coachLayer, railwayLayer, highwayLayer].forEach(l => l && l.addTo(map));
+
+  map.on("zoomend", () => {
+    const r = getRadius(map.getZoom());
+    [airportLayer, portLayer, coachLayer, railwayLayer].forEach(layer => {
+      if (layer) {
+        layer.eachLayer(marker => {
+          if (marker.setRadius) marker.setRadius(r);
+        });
+      }
+    });
+  });
+
+  const layerMap = {
+    airport: () => airportLayer,
+    port: () => portLayer,
+    coach: () => coachLayer,
+    railway: () => railwayLayer,
+    highway: () => highwayLayer,
+  };
+
+  Object.keys(layerMap).forEach((id) => {
+    document.getElementById(id).addEventListener("change", (e) => {
+      const layer = layerMap[id]();
+      if (e.target.checked) {
+        map.addLayer(layer);
+      } else {
+        map.removeLayer(layer);
+      }
+    });
+  });
+})();
+</script>
+
+
+</body>
+</html>

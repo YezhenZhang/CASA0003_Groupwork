@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GBA Accessibility Viewer - Map 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      overscroll-behavior: none;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body::-webkit-scrollbar { display: none; }
+    body::after { content: ''; display: block; height: 1px; }
+
+    .map-section {
+      height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .map-container { width: 100%; height: 100%; }
+    .map {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .map.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .map-controls, #sidebar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #333;
+      padding: 16px;
+      border-radius: 8px;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      font-size: 14px;
+      color: white;
+      max-width: 260px;
+    }
+
+    .group-row { display: flex; justify-content: space-between; gap: 10px; }
+    .legend-block i {
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    #sidebar > div:first-child {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .map-switch button {
+      display: block;
+      width: 100%;
+      margin-bottom: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+      background-color: #555;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .legend-dot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    canvas#barChart { width: 100%; }
+
+    .popup-dark,
+    .leaflet-popup-content-wrapper {
+      background: #1e1e1e !important;
+      color: #f0f0f0;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      max-width: 300px;
+      width: auto !important;
+      white-space: nowrap;
+    }
+    .leaflet-popup-tip {
+      background: #1e1e1e !important;
+    }
+    .leaflet-popup-close-button { display: none; }
+    path:focus { outline: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- 地图展示 -->
+  <div class="map-section">
+    <div id="sidebar">
+      <div>GBA Accessibility Viewer</div>
+      <div>
+        <div class="section-title"></div>
+        <div id="description" style="font-size: 14px; line-height: 1.4;"></div>
+        <p style="font-size: 12px; margin: 0 0 10px 0; color: #bbb;">
+          Data sources:
+          <a href="https://hub.worldpop.org/doi/10.5258/SOTON/WP00651" target="_blank" style="color: #8899aa;">WorldPop</a>,
+          <a href="https://openrouteservice.org/dev/#/api-docs" target="_blank" style="color: #8899aa;">Openroute Service</a>
+          <a href="https://cloudcenter.tianditu.gov.cn/administrativeDivision" target="_blank" style="color: #8899aa;">Administrative Division Map</a>
+        </p>
+      </div>
+
+      <div>
+        <div class="section-title">Map Type</div>
+        <div class="map-switch">
+          <button class="map-btn" onclick="switchMap(0)">Total Population</button>
+          <button class="map-btn" onclick="switchMap(1)">Accessible Population</button>
+          <button class="map-btn" onclick="switchMap(2)">Accessibility Index</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Legend</div>
+        <div id="legend"></div>
+      </div>
+
+      <div>
+        <div class="section-title">Top 5 Regions</div>
+        <div style="width: 100%; height: 200px;">
+          <canvas id="barChart" style="width: 100% !important; height: 100% !important;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div id="map-container" style="width: 100%; height: 100%;">
+      <div id="map2_0" class="map active"></div>
+      <div id="map2_1" class="map"></div>
+      <div id="map2_2" class="map"></div>
+    </div>
+  </div>
+
+  <!-- 脚本 -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.4.2/chroma.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="lang_template.js"></script> <!-- 引入翻译功能 -->
+  <script>
+    const maps2 = [0, 1, 2].map(id =>
+      L.map(`map2_${id}`, { zoomControl: false }).setView([23.0, 113.5], 9)
+    );
+
+    const colorScales2 = [
+      chroma.scale(['#efd2da', '#c64172']),
+      chroma.scale(['#ddd0af', '#f7b334']),
+      chroma.scale(['#e4daf4', '#9779d0'])
+    ];
+
+    const fields2 = [
+      'county_accessibility_index_cleaned_total_pop',
+      'county_accessibility_index_cleaned_population_in_iso',
+      'county_accessibility_index_cleaned_accessibility_index'
+    ];
+
+    const labels2 = ['Total Population', 'Accessible Population', 'Accessibility Index'];
+    const layerRefs2 = [[], [], []];
+    let geoData2 = null;
+    let selectedLayer2 = null;
+
+    maps2.forEach(map => {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; Carto'
+      }).addTo(map);
+    });
+
+    function activateMap(index) {
+      document.querySelectorAll('.map').forEach((el, i) => {
+        el.classList.toggle('active', i === index);
+      });
+      requestAnimationFrame(() => maps2[index].invalidateSize());
+    }
+
+    function switchMap(index) {
+      activateMap(index);
+      maps2[index].setView([23.0, 113.5], 9);
+      updateLegend(index);
+      updateBarChart(index);
+      updateDescription(index);
+  
+      document.querySelectorAll('.map-btn').forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('active');
+          btn.style.backgroundColor = colorScales2[index](0.8).hex();
+          btn.style.color = 'black';
+          btn.style.fontWeight = 'bold';
+        } else {
+          btn.classList.remove('active');
+          btn.style.backgroundColor = '#555';
+          btn.style.color = 'white';
+          btn.style.fontWeight = 'normal';
+        }
+      });
+
+      setTimeout(() => {
+        if (window.barChartInstance) {
+          window.barChartInstance.resize();
+          window.barChartInstance.update();
+        }
+      }, 100);
+    }
+
+    function updateDescription(index) {
+      const text = {
+        0: 'Total population in each district of the GBA.',
+        1: 'District-level population covered by 20-minute drive-time zones from train stations.',
+        2: 'Proportion of district population reachable by rail within 20 minutes.'
+      };
+      document.getElementById('description').textContent = text[index];
+    }
+
+    function updateLegend(index) {
+      const container = document.getElementById('legend');
+      container.innerHTML = '';
+      const scale = colorScales2[index];
+      const values = geoData2.features.map(f => f.properties[fields2[index]]);
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const steps = 5;
+
+      for (let i = 0; i < steps; i++) {
+        const start = min + (i / steps) * (max - min);
+        const end = min + ((i + 1) / steps) * (max - min);
+        const ratio = (i + 0.5) / steps;
+        const color = scale(ratio).hex();
+        let label = '';
+        if (index === 2) {
+          label = (start * 100).toFixed(0) + ' to ' + (end * 100).toFixed(0) + ' percent';
+        } else {
+          label = Math.round(start).toLocaleString() + ' – ' + Math.round(end).toLocaleString();
+        }
+
+        container.innerHTML += `
+          <div class="legend-dot">
+            <div style="width: 12px; height: 12px; background: ${color}; border-radius: 50%; margin-right: 8px;"></div>
+            <span>${label}</span>
+          </div>`;
+      }
+    }
+
+    function updateBarChart(index) {
+      const sorted = geoData2.features
+        .map(f => ({ name: f.properties.县名, value: f.properties[fields2[index]] }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5);
+
+      const ctx = document.getElementById('barChart').getContext('2d');
+      if (window.barChartInstance) {
+        window.barChartInstance.destroy();
+      }
+
+      window.barChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: sorted.map(d => t(d.name)),
+          datasets: [{
+            label: labels2[index],
+            data: sorted.map(d => index === 2 ? (d.value * 100).toFixed(2) : Math.round(d.value)),
+            backgroundColor: colorScales2[index](0.8).hex()
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              bodyFont: { family: 'Arial', size: 11 },
+              titleFont: { family: 'Arial', size: 11 }
+            }
+          },
+          onClick: function(evt, elements) {
+            if (elements.length > 0) {
+              const labelIndex = elements[0].index;
+              const name = this.data.labels[labelIndex];
+              const translated = typeof t === 'function' ? t(name) : name;
+              const match = layerRefs2[index].find(l => {
+                const countyName = l.feature.properties.县名;
+                return t(countyName) === name || countyName === name || translated === countyName;
+              });
+
+              if (match) {
+                if (selectedLayer2) {
+                  selectedLayer2.setStyle({ color: '#333', weight: 1, opacity: 0.6 });
+                  selectedLayer2.closePopup();
+                }
+                match.layer.setStyle({ color: '#66ccff', weight: 4, opacity: 0.9 });
+                match.layer.openPopup();
+                selectedLayer2 = match.layer;
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#ccc', font: { family: 'Arial', size: 11 } } },
+            y: { ticks: { color: '#ccc', font: { family: 'Arial', size: 11 } } }
+          },
+          animation: false
+        }
+      });
+    }
+
+    function generatePopupHTML(props) {
+      return `
+        Region: ${t(props.县名)}<br>
+        Total Population: ${Math.round(props.county_accessibility_index_cleaned_total_pop).toLocaleString()}<br>
+        Accessible Population: ${Math.round(props.county_accessibility_index_cleaned_population_in_iso).toLocaleString()}<br>
+        Accessibility Index: ${(props.county_accessibility_index_cleaned_accessibility_index * 100).toFixed(2)}%
+      `;
+    }
+
+    function renderMapLayers(data) {
+      geoData2 = data;
+      data.features.forEach(f => {
+        f.properties.__popup = generatePopupHTML(f.properties);
+      });
+
+      fields2.forEach((field, i) => {
+        const values = data.features.map(f => f.properties[field]);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const scale = colorScales2[i];
+
+        L.geoJSON(data, {
+          style: function(feature) {
+            const ratio = (feature.properties[field] - min) / (max - min);
+            return {
+              fillColor: scale(ratio).hex(),
+              color: '#333',
+              weight: 1,
+              opacity: 0.6,
+              fillOpacity: 0.7
+            };
+          },
+          onEachFeature: function(feature, layer) {
+            layer.on('click', function() {
+              if (selectedLayer2 && selectedLayer2 !== layer) {
+                selectedLayer2.setStyle({ color: '#333', weight: 1, opacity: 0.6 });
+                selectedLayer2.closePopup();
+              }
+              layer.setStyle({ color: '#66ccff', weight: 4, opacity: 0.9 });
+              layer.bindPopup(feature.properties.__popup).openPopup();
+              selectedLayer2 = layer;
+            });
+            layerRefs2[i].push({ feature: feature, layer: layer });
+          }
+        }).addTo(maps2[i]);
+      });
+    }
+
+    fetch('geojson/index_pop_districts.geojson')
+      .then(response => response.json())
+      .then(data => {
+        renderMapLayers(data);
+        switchMap(0);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Station Density Heatmap</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", sans-serif; }
+    #map { position: absolute; top: 0; left: 300px; right: 0; bottom: 0; }
+    .sidebar {
+      position: absolute;
+      width: 300px;
+      top: 0; left: 0; bottom: 0;
+      background: #1a1a1a;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+    .sidebar h2 { margin-top: 0; font-size: 18px; }
+    .sidebar p {
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: justify;
+    }
+    .button-group { margin-top: 20px; }
+    .button-group button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 8px;
+      background: #333;
+      color: white;
+      border: 1px solid #666;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button-group button:hover { background: #444; }
+    .legend {
+      margin-top: 20px;
+      font-size: 12px;
+    }
+    .gradient-bar {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to right, #ffffff, #2dcdb3, #33b7b1, #8560a8, #81468a);
+      margin: 8px 0;
+      border-radius: 3px;
+    }
+    .legend-labels {
+      display: flex;
+      justify-content: space-between;
+    }
+    .legend-labels span {
+      color: #ccc;
+      font-size: 10px;
+    }
+    .mapboxgl-popup-content {
+      background: black;
+      color: white;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>Station Density Heatmap</h2>
+  <p>This page shows the density of transport stations in the Greater Bay Area using heatmaps.</p>
+  <p style="font-size: 12.5px; line-height: 1.4; margin-bottom: 10px; text-align: justify;">
+    <strong>Source from:</strong> 
+    <a href="https://www.google.com/maps" target="_blank" style="color:#ccc;">Google Map</a>, 
+    <a href="https://gaode.com" target="_blank" style="color:#ccc;">Auto Navi(Gaode)</a>, 
+    <a href="https://ourairports.com" target="_blank" style="color:#ccc;">Ourairports</a>, 
+    <a href="https://lbs.amap.com/api" target="_blank" style="color:#ccc;">Auto Navi APi</a>, 
+    <a href="https://gadm.org/" target="_blank" style="color:#ccc;">GADM</a>
+  </p>
+  <div class="button-group">
+    <button onclick="switchLayer('all')">All Stations</button>
+    <button onclick="switchLayer('airport')">Airport</button>
+    <button onclick="switchLayer('port')">Port</button>
+    <button onclick="switchLayer('railway')">Railway Station</button>
+    <button onclick="switchLayer('coach')">Coach Station</button>
+  </div>
+  <div class="legend">
+    <strong>Density</strong>
+    <div class="gradient-bar"></div>
+    <div class="legend-labels">
+      <span>Low</span>
+      <span>High</span>
+    </div>
+  </div>
+</div>
+<div id="map"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGFuMDMwNiIsImEiOiJjbTZnbDdhMjIwMjN2MmtyNzl4c2V6cmFxIn0.AqQFDmArF3FGkSj07gP76A';
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json',
+  center: [113.3, 23.1],
+  zoom: 7.2
+});
+
+const sources = {
+  airport: 'GBA_airport.geojson',
+  port: 'GBA_port.geojson',
+  railway: 'GBA_railway_station.geojson',
+  coach: 'GBA_coach_station.geojson'
+};
+
+const layers = {};
+const tooltipEl = document.createElement('div');
+tooltipEl.className = 'mapboxgl-popup-content';
+tooltipEl.style.position = 'absolute';
+tooltipEl.style.pointerEvents = 'none';
+tooltipEl.style.zIndex = '999';
+tooltipEl.style.display = 'none';
+document.body.appendChild(tooltipEl);
+
+let boundaryGeoJSON = null;
+
+map.on('load', () => {
+  fetch('GBA_merged_boundary.geojson')
+    .then(res => res.json())
+    .then(data => {
+      boundaryGeoJSON = data;
+
+      map.addSource('boundary', {
+        type: 'geojson',
+        data: boundaryGeoJSON
+      });
+
+      map.addLayer({
+        id: 'boundary-line',
+        type: 'line',
+        source: 'boundary',
+        paint: {
+          'line-color': '#aaaaaa',
+          'line-width': 1.5,
+          'line-opacity': 0.8
+        }
+      });
+
+      map.addLayer({
+        id: 'boundary-fill',
+        type: 'fill',
+        source: 'boundary',
+        paint: {
+          'fill-color': '#888888',
+          'fill-opacity': 0.05
+        }
+      });
+    });
+
+  map.on('mousemove', (e) => {
+    const features = map.queryRenderedFeatures(e.point, { layers: ['boundary-fill'] });
+    if (features.length > 0) {
+      const name = features[0].properties.NAME_2 || features[0].properties.name;
+      tooltipEl.innerHTML = name;
+      tooltipEl.style.left = e.originalEvent.pageX + 10 + 'px';
+      tooltipEl.style.top = e.originalEvent.pageY + 10 + 'px';
+      tooltipEl.style.display = 'block';
+    } else {
+      tooltipEl.style.display = 'none';
+    }
+  });
+
+  map.on('click', (e) => {
+    const features = map.queryRenderedFeatures(e.point, { layers: ['boundary-fill'] });
+    if (features.length > 0 && boundaryGeoJSON) {
+      const cityName = features[0].properties.NAME_2 || features[0].properties.name;
+      const matched = boundaryGeoJSON.features.filter(f =>
+        (f.properties.NAME_2 || f.properties.name) === cityName
+      );
+
+      if (matched.length > 0) {
+        const unioned = matched.length > 1 ? turf.union(...matched) : matched[0];
+        const bounds = turf.bbox(unioned);
+        map.fitBounds([[bounds[0], bounds[1]], [bounds[2], bounds[3]]], {
+          padding: 40,
+          duration: 1200
+        });
+
+        if (map.getLayer('highlight-boundary')) map.removeLayer('highlight-boundary');
+        if (map.getSource('highlight-boundary')) map.removeSource('highlight-boundary');
+
+        map.addSource('highlight-boundary', {
+          type: 'geojson',
+          data: unioned
+        });
+        map.addLayer({
+          id: 'highlight-boundary',
+          type: 'line',
+          source: 'highlight-boundary',
+          paint: {
+            'line-color': '#d6a3ff',
+            'line-width': 3,
+            'line-opacity': 1
+          }
+        });
+      }
+    }
+  });
+
+  // Add all heatmaps last (keep on top)
+  const allFeatures = [];
+  Promise.all(
+    Object.values(sources).map(url => fetch(url).then(res => res.json()))
+  ).then(geojsons => {
+    geojsons.forEach(data => {
+      if (data.features) allFeatures.push(...data.features);
+    });
+
+    map.addSource('all', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: allFeatures }
+    });
+
+    map.addLayer({
+      id: 'all-heat',
+      type: 'heatmap',
+      source: 'all',
+      maxzoom: 14,
+      layout: { visibility: 'visible' },
+      paint: {
+        'heatmap-weight': 1,
+        'heatmap-intensity': 1,
+        'heatmap-radius': ["interpolate", ["linear"], ["zoom"], 0, 15, 10, 45],
+        'heatmap-opacity': 0.95,
+        'heatmap-color': [
+          'interpolate', ['linear'], ['heatmap-density'],
+          0, 'rgba(255,255,255,0)',
+          0.2, '#2dcdb3',
+          0.4, '#33b7b1',
+          0.6, '#8560a8',
+          0.8, '#81468a',
+          1, '#502e63'
+        ]
+      }
+    });
+
+    layers['all'] = 'all-heat';
+
+    // Add other category-specific heatmaps
+    Object.keys(sources).forEach((key) => {
+      map.addSource(key, { type: 'geojson', data: sources[key] });
+      map.addLayer({
+        id: key + '-heat',
+        type: 'heatmap',
+        source: key,
+        maxzoom: 14,
+        layout: { visibility: 'none' },
+        paint: {
+          'heatmap-weight': 1,
+          'heatmap-intensity': 1,
+          'heatmap-radius': ["interpolate", ["linear"], ["zoom"], 0, 15, 10, 45],
+          'heatmap-opacity': 0.95,
+          'heatmap-color': [
+            'interpolate', ['linear'], ['heatmap-density'],
+            0, 'rgba(255,255,255,0)',
+            0.2, '#2dcdb3',
+            0.4, '#33b7b1',
+            0.6, '#8560a8',
+            0.8, '#81468a',
+            1, '#502e63'
+          ]
+        }
+      });
+
+      layers[key] = key + '-heat';
+    });
+  });
+});
+
+function switchLayer(name) {
+  Object.values(layers).forEach(id => {
+    if (map.getLayer(id)) {
+      map.setLayoutProperty(id, 'visibility', 'none');
+    }
+  });
+
+  if (layers[name] && map.getLayer(layers[name])) {
+    map.setLayoutProperty(layers[name], 'visibility', 'visible');
+  } else {
+    console.warn(`Layer "${name}" not found or not yet loaded.`);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Webpage</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Smooth scroll */
+    }
+
+    body {
+      background-color: #000; /* Set background color to black */
+      color: #f4f4f4; /* Set text color to light for contrast */
+      line-height: 1.6;
+      padding-top: 60px; /* Adjust to prevent content from being hidden behind fixed navbar */
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    /* Fixed Top Navigation Bar */
+    .navbar {
+      background-color: rgba(211, 211, 211, 0.7); /* Set navbar background to light gray with transparency */
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+      top: 0; /* Ensure the navbar is always fixed at the top */
+      left: 0;
+      z-index: 1000;
+      display: flex; /* Enable flexbox */
+      justify-content: center; /* Center the links horizontally */
+      align-items: center; /* Center the links vertically */
+      padding: 10px 0; /* Add some padding for better visual space */
+    }
+
+    .navbar a {
+      font-weight: bold;
+      color: #333; /* Dark text for contrast */
+      padding: 14px 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
+    }
+
+    .navbar a:hover {
+      background-color: #ddd; /* Light gray background on hover */
+      color: black; /* Dark text color when hovered */
+    }
+
+    /* Page sections */
+    .section {
+      padding: 60px 20px;
+      min-height: 100vh;
+      margin-top: 60px; /* Prevent overlap with fixed navbar */
+      background-color: #000; /* Ensure sections are also black */
+    }
+
+    /* Home page with background image and adjusted transparency */
+    #home {
+      position: relative;
+      background-image: url('hongkong.jpg'); /* Set the background image */
+      background-size: cover; /* Ensure the image covers the entire area */
+      background-position: center; /* Center the background image */
+      height: 100vh; /* Make sure the home page fills the entire screen */
+      display: flex;
+      justify-content: center; /* Center text horizontally */
+      align-items: center; /* Center text vertically */
+      text-align: center;
+      color: white; /* Text color */
+    }
+
+    /* Add a transparent overlay over the background */
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3); /* Dark overlay */
+      opacity: 0.7; /* Set background transparency to 70% */
+      z-index: -1; /* Ensure overlay is behind content */
+    }
+
+    /* Text styles for home page */
+    #home h1 {
+      font-size: 2rem;
+      padding-left: 20px;
+    }
+
+    #home p {
+      font-size: 1.2rem;
+      padding-left: 20px;
+    }
+
+    /* Ensuring iframe covers the full screen */
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar" id="navbar">
+    <a href="#home">Home</a>
+    <a href="#introduction">Introduction</a>
+    <a href="#part1">Part 1</a>
+    <a href="#part2">Part 2</a>
+    <a href="#part3">Part 3</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#reference">Reference</a>
+    <a href="#acknowledgement">Acknowledgement</a>
+  </div>
+
+  <!-- Home Page with Background Image -->
+  <div id="home" class="section">
+    <h1>Bridging the Bay: Transport Infrastructure, Mobility Patterns, and Equity in the Greater Bay Area</h1>
+    <p>Group 19: Han SHAN, Xinyi LIN, Yezhen ZHANG</p>
+  </div>
+
+  <!-- Part 1 -->
+  <div id="part1" class="section">
+    <h1>Part 1</h1>
+    <p>Transport network, station density heatmap, city transport volume</p>    
+    <iframe src="part1_2/cover.html" title="Part 1 - Cover Page"></iframe>
+    <iframe src="part1_2/network.html" title="Part 1 - Map Page 1"></iframe>
+    <iframe src="part1_2/Heatmap.html" title="Part 1 - Map Page 2"></iframe>
+    <iframe src="part1_2/Chart_final.html" title="Part 1 - Chart Page"></iframe>
+  </div>
+
+  <!-- Part 2 -->
+  <div id="part2" class="section">
+    <h1>Part 2</h1>
+    <iframe src="part2_3/cover.html" title="Part 2 - Cover Page"></iframe>
+    <iframe src="part2_3/part2_index.html" title="Part 2 - Combined Map and Chart"></iframe>
+  </div>
+
+  <!-- Part 3 -->
+  <div id="part3" class="section">
+    <h1>Part 3</h1>
+    <iframe src="part3/cover.html" title="Part 3 - Cover Page"></iframe>
+    <iframe src="part3/index.html" title="Part 3 - Combined Map and Chart"></iframe>
+  </div>
+
+  <!-- Conclusion Page -->
+  <div id="conclusion" class="section">
+    <h1>Conclusion</h1>
+    <p>This is the conclusion page content.</p>
+  </div>
+
+  <!-- Reference Page -->
+  <div id="reference" class="section">
+    <h1>Reference</h1>
+    <p>This is the reference page content.</p>
+  </div>
+
+  <!-- Acknowledgement Page -->
+  <div id="acknowledgement" class="section">
+    <h1>Acknowledgement</h1>
+    <p>This is the acknowledgement page content.</p>
+  </div>
+</body>
+</html>
