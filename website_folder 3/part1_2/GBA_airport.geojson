@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "ID": 1, "Name": "Guangzhou Baiyun International Airport", "Latitude": 23.392401, "Longitude": 113.299004, "latitude": 23.392401, "longitude": 113.299004 }, "geometry": { "type": "Point", "coordinates": [ 113.299004, 23.392401 ] } },
+{ "type": "Feature", "properties": { "ID": 2, "Name": "Foshan Shadi Airport", "Latitude": 23.0825, "Longitude": 113.070833, "latitude": 23.0825, "longitude": 113.070833 }, "geometry": { "type": "Point", "coordinates": [ 113.070833, 23.0825 ] } },
+{ "type": "Feature", "properties": { "ID": 3, "Name": "Shenzhen Bao'an International Airport", "Latitude": 22.639299, "Longitude": 113.810997, "latitude": 22.639299, "longitude": 113.810997 }, "geometry": { "type": "Point", "coordinates": [ 113.810997, 22.639299 ] } },
+{ "type": "Feature", "properties": { "ID": 4, "Name": "Huizhou Pingtan Airport", "Latitude": 23.049999, "Longitude": 114.599998, "latitude": 23.049999, "longitude": 114.599998 }, "geometry": { "type": "Point", "coordinates": [ 114.599998, 23.049999 ] } },
+{ "type": "Feature", "properties": { "ID": 5, "Name": "\tZhuhai Jinwan Airport", "Latitude": 22.006399, "Longitude": 113.375999, "latitude": 22.006399, "longitude": 113.375999 }, "geometry": { "type": "Point", "coordinates": [ 113.375999, 22.006399 ] } },
+{ "type": "Feature", "properties": { "ID": 6, "Name": "Hong Kong International Airport", "Latitude": 22.308901, "Longitude": 113.915001, "latitude": 22.308901, "longitude": 113.915001 }, "geometry": { "type": "Point", "coordinates": [ 113.915001, 22.308901 ] } },
+{ "type": "Feature", "properties": { "ID": 7, "Name": "Macau International Airport", "Latitude": 22.149599, "Longitude": 113.592003, "latitude": 22.149599, "longitude": 113.592003 }, "geometry": { "type": "Point", "coordinates": [ 113.592003, 22.149599 ] } }
+]
+}

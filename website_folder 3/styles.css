@@ -1,0 +1,322 @@
+/* 基础设置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  background-color: #000;
+  color: #f4f4f4;
+  overflow-x: hidden;
+}
+
+/* 滚动条样式 */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 6px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+body::-webkit-scrollbar-track {
+  background: #222;
+}
+
+/* 顶部导航栏 */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 30px;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  z-index: 99999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  justify-content: center;  /* 水平居中 */
+}
+.navbar a,
+.navbar button {
+  font-weight: bold;
+  font-size: 15px;
+  color: #000;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.navbar a:hover,
+.navbar button:hover {
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+/* 下拉菜单 */
+.dropdown {
+  position: relative;
+  z-index: 99999;
+}
+.dropdown-content {
+  display: none;
+  min-width: 160px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  border-radius: 6px;
+  position: fixed;
+}
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+}
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}
+
+/* section布局 */
+.section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+/* iframe通用样式 */
+iframe {
+  width: 90%;
+  height: 80vh;
+  border: none;
+  position: relative;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+/* 滚动指示器 */
+.scroll-indicator {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+.indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+.indicator.active {
+  background-color: #4375aa;
+  border-color: #004794;
+}
+
+/* 首页背景 */
+#home {
+  position: relative;
+  background-image: url('hongkong.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+#home::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+  z-index: -1;
+}
+#home h1 {
+  font-size: 2rem;
+  padding-left: 20px;
+}
+#home p {
+  font-size: 1.2rem;
+  padding-left: 20px;
+}
+
+/* hero 样式 */
+.hero {
+  background-image: url('your_background.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+  z-index: 0;
+}
+.hero-text {
+  position: relative;
+  z-index: 1;
+  max-width: 80%;
+  animation: fadeIn 2s ease-out;
+}
+.hero h1 {
+  font-size: 250px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+.hero p {
+  font-size: 30px;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 8px 0;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+.underline {
+  width: 360px;
+  height: 4px;
+  background-color: #aad3de;
+  margin: 12px auto 18px auto;
+  border-radius: 2px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* intro/conclusion/content 样式统一化 */
+.intro-section,
+.conclusion-section,
+.content-section {
+  background-color: #111;
+  color: #f4f4f4;
+  padding: 80px 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  overflow-y: auto;
+}
+.intro-content,
+.conclusion-content,
+.content-container {
+  max-width: 900px;
+}
+.intro-section h1,
+.conclusion-section h1,
+.content-section h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.intro-underline,
+.conclusion-underline,
+.section-underline {
+  height: 4px;
+  background-color: #aad3de;
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+.intro-underline { width: 210px; }
+.conclusion-underline { width: 200px; }
+.section-underline { width: 320px; }
+
+.intro-section p,
+.conclusion-section p,
+.content-section p {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+.intro-section ul,
+.conclusion-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: -10px;
+}
+.intro-section li,
+.conclusion-section li {
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.conclusion-section h2 {
+  font-size: 22px;
+  margin: 24px 0 12px;
+  color: #67aabc;
+}
+
+/* part-cover 样式 */
+.part-cover {
+  background: linear-gradient(to bottom, #111, #222);
+  color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 100px 10vw;
+  overflow-y: auto;
+}
+.part-cover-content {
+  max-width: 800px;
+}
+.part-cover h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.part-cover h2 {
+  font-size: 22px;
+  font-weight: 400;
+  color: #cccccc;
+  margin-bottom: 24px;
+}
+.part-cover-underline {
+  width: 500px;
+  height: 4px;
+  background-color: #aad3de;
+  margin: 0 auto 30px auto;
+  border-radius: 2px;
+}
+.part-cover p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+.part-image {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
