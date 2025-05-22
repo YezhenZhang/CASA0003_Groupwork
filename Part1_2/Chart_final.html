@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GBA Transport Viewer</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+body {
+  font-family: "Segoe UI", sans-serif;
+  padding: 30px;
+  background-color: #000;
+  /* 删除底图背景图： */
+  background-image: none;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .button-group { margin-bottom: 20px; }
+    .chart { display: none; }
+    .active-chart { display: block; }
+    .line {
+      fill: none;
+      stroke-width: 3px;
+      opacity: 0.85;
+    }
+    .label {
+      font-size: 12px;
+      font-weight: bold;
+      paint-order: stroke;
+      stroke: black;
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+    .axis path, .axis line { stroke: #aaa; }
+    .axis text { fill: white; }
+    .axis-label {
+      font-size: 18px;
+      font-weight: bold;
+      fill: white;
+    }
+    .hover-label, .year-text {
+      font-size: 12px;
+      font-weight: bold;
+      fill: white;
+      pointer-events: none;
+    }
+    .hover-label-bg, .year-box {
+      fill: #566573;
+      opacity: 0.85;
+      rx: 4;
+      ry: 4;
+    }
+button {
+  margin: 0 5px 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #444;   /* 灰色背景 */
+  color: white;             /* 白色字体 */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #666;   /* 悬停时浅灰色 */
+}
+
+button:active {
+  background-color: #333;   /* 按下时更深的灰色 */
+}
+
+    svg {
+      width: 1200px !important;
+      height: 600px !important;
+    }
+    .page-break {
+      page-break-before: always;
+      margin-top: 100px;
+    }
+    .source-left {
+      text-align: left;
+      margin: 0 auto -10px auto;
+      max-width: 1000px;
+      padding-left: 10px;
+      font-size: 13px;
+      color: #ccc;
+    }
+    .source-left a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    /* --- 自定义灰色滚动条 --- */
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #222; /* 滚动条背景轨道颜色 */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动块颜色（灰色） */
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #777; /* 鼠标悬停时颜色 */
+}
+
+  </style>
+</head>
+<body>
+  <!-- Source Reference -->
+  <div class="source-left">
+    Source: <a href="https://www.stats.gov.cn/sj/ndsj/" target="_blank">National Bureau of Statistics</a>
+  </div>
+
+  <!-- Passenger Section -->
+  <h2>GBA City Passenger Transport Volume</h2>
+  <div class="button-group">
+    <button class="modeBtn" data-mode="road">Road</button>
+    <button class="modeBtn" data-mode="railway">Railway</button>
+    <button class="modeBtn" data-mode="waterway">Waterway</button>
+    <button class="modeBtn" data-mode="air">Air</button>
+  </div>
+  <div id="passengerContainer">
+    <div id="passenger-road" class="chart active-chart">
+      <h3>🚗 Passenger Road Volume 1999-2022 (Million)</h3>
+      <svg id="roadSvg"></svg>
+      <div><button class="pauseBtn" data-target="#roadSvg">Pause</button><button class="replayBtn" data-target="#roadSvg">Replay</button></div>
+    </div>
+    <div id="passenger-railway" class="chart">
+      <h3>🚄 Passenger Railway Volume 1999-2014 (Million)</h3>
+      <svg id="railSvg"></svg>
+      <div><button class="pauseBtn" data-target="#railSvg">Pause</button><button class="replayBtn" data-target="#railSvg">Replay</button></div>
+    </div>
+    <div id="passenger-waterway" class="chart">
+      <h3>🚢 Passenger Waterway Volume 2001-2019 (Ten Thousand)</h3>
+      <svg id="waterSvg"></svg>
+      <div><button class="pauseBtn" data-target="#waterSvg">Pause</button><button class="replayBtn" data-target="#waterSvg">Replay</button></div>
+    </div>
+    <div id="passenger-air" class="chart">
+      <h3>✈️ Passenger Air Volume 2001-2019 (Ten Thousand)</h3>
+      <svg id="airSvg"></svg>
+      <div><button class="pauseBtn" data-target="#airSvg">Pause</button><button class="replayBtn" data-target="#airSvg">Replay</button></div>
+    </div>
+  </div>
+
+  <!-- Page Break -->
+  <div class="page-break"></div>
+
+  <!-- Cargo Section -->
+  <div class="source-left">
+    Source: <a href="https://www.stats.gov.cn/sj/ndsj/" target="_blank">National Bureau of Statistics</a>
+  </div>
+  <h2>GBA City Cargo Transport Volume</h2>
+  <div class="button-group">
+    <button class="cargoBtn" data-mode="road">Road</button>
+    <button class="cargoBtn" data-mode="railway">Railway</button>
+    <button class="cargoBtn" data-mode="waterway">Waterway</button>
+    <button class="cargoBtn" data-mode="air">Air</button>
+  </div>
+  <div id="cargoContainer">
+    <div id="cargo-road" class="chart active-chart">
+      <h3>🚚 Cargo Road Volume 1999-2022 (Million Tons)</h3>
+      <svg id="cargoRoadSvg"></svg>
+      <div><button class="pauseBtn" data-target="#cargoRoadSvg">Pause</button><button class="replayBtn" data-target="#cargoRoadSvg">Replay</button></div>
+    </div>
+    <div id="cargo-railway" class="chart">
+      <h3>🚄 Cargo Railway Volume 1999-2014 (Million Tons)</h3>
+      <svg id="cargoRailSvg"></svg>
+      <div><button class="pauseBtn" data-target="#cargoRailSvg">Pause</button><button class="replayBtn" data-target="#cargoRailSvg">Replay</button></div>
+    </div>
+    <div id="cargo-waterway" class="chart">
+      <h3>🚢 Cargo Waterway Volume 2001-2019 (Million Tons)</h3>
+      <svg id="cargoWaterSvg"></svg>
+      <div><button class="pauseBtn" data-target="#cargoWaterSvg">Pause</button><button class="replayBtn" data-target="#cargoWaterSvg">Replay</button></div>
+    </div>
+    <div id="cargo-air" class="chart">
+      <h3>✈️ Cargo Air Volume 2001-2019 (Million Tons)</h3>
+      <svg id="cargoAirSvg"></svg>
+      <div><button class="pauseBtn" data-target="#cargoAirSvg">Pause</button><button class="replayBtn" data-target="#cargoAirSvg">Replay</button></div>
+    </div>
+  </div>
+
+  <!-- Chart Script -->
+  <script src="chart.js"></script>
+</body>
+</html>

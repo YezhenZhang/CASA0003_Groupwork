@@ -1,0 +1,1147 @@
+[
+  {
+    "Type": "Port",
+    "Chinese": "深圳蛇口港",
+    "English": "Shekou Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "深圳赤湾港",
+    "English": "Chiwan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "深圳妈湾港",
+    "English": "Mawan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "深圳大铲湾码头",
+    "English": "Dachan Bay Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "深圳盐田港",
+    "English": "Yantian Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "深圳宝安港",
+    "English": "Baoan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州南沙港",
+    "English": "Nansha Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州南沙新港",
+    "English": "Nansha New Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州南沙客运港",
+    "English": "Nansha Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州莲花山港",
+    "English": "Lianhuashan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州黄埔港",
+    "English": "Huangpu Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州新沙港",
+    "English": "Xinsha Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "广州花都港",
+    "English": "Huadu Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海高栏港",
+    "English": "Gaolan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海洪湾港",
+    "English": "Hongwan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海斗门港",
+    "English": "Doumen Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海香洲港",
+    "English": "Xiangzhou Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海九洲港",
+    "English": "Jiuzhou Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "中山小榄港",
+    "English": "Xiaolan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "中山神湾港",
+    "English": "Shenwan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门鹤山港",
+    "English": "Heshan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门新会港",
+    "English": "Xinhui Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门港",
+    "English": "Jiangmen Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门三埠港",
+    "English": "Sanbu Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门恩平港",
+    "English": "Enping Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "肇庆高要港",
+    "English": "Gaoyao Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "肇庆新港",
+    "English": "Zhaoqing New Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "肇庆三榕港",
+    "English": "Sanrong Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "惠州港",
+    "English": "Huizhou Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "东莞虎门港",
+    "English": "Humen Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "东莞麻涌码头",
+    "English": "Mayong Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "东莞虎门镇客运码头",
+    "English": "Humen Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "江门银洲湖观光码头",
+    "English": "Yinzhou Lake Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山新港",
+    "English": "Foshan New Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山三山港23.03926555462758, 113.23093734805121",
+    "English": "Sanshan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山顺德港22.80647870133976, 113.34372043441763",
+    "English": "Shunde Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山容奇港",
+    "English": "Rongqi Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山三水港",
+    "English": "Sanshui Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山高明港22.894833937693665, 112.90046837045428",
+    "English": "Gaoming Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山澜石港",
+    "English": "Lanshi Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山勒流港",
+    "English": "Leliu Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "佛山北滘港",
+    "English": "Beijiao Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "香港维多利亚港",
+    "English": "Victoria Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "香港葵涌码头",
+    "English": "Kuiyong Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "香港屯门客运码头",
+    "English": "Tunmen Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "香港海天客运码头",
+    "English": "Haitian Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "香港西贡码头",
+    "English": "Xigong Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "澳门九澳货柜码头",
+    "English": "Jiuao Cargo Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "澳门凼仔客运码头",
+    "English": "Dangzai Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "澳门外港客运码头",
+    "English": "Outer Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "澳门内港客运码头",
+    "English": "Inner Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "澳门路环码头",
+    "English": "Luhuan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "中山港",
+    "English": "Zhongshan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "珠海桂山码头",
+    "English": "Guishan Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "东莞港澳客运码头",
+    "English": "Macao-Hong Kong Passenger Port"
+  },
+  {
+    "Type": "Port",
+    "Chinese": "东莞国际码头",
+    "English": "Dongguan International Port"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "省汽车客运站",
+    "English": "Provincial Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广园客运站",
+    "English": "Guangyuan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广州滘口汽车站",
+    "English": "Jiaokou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广州东站汽车客运站",
+    "English": "Guangzhou East Station Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广州芳村汽车客运站",
+    "English": "Fangcun Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "白云客运站",
+    "English": "Baiyun Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "海珠客运站",
+    "English": "Haizhu Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "天河汽车客运站",
+    "English": "Tianhe Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "佛山市大沥汽车客运站",
+    "English": "Dali Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "佛山汽车站",
+    "English": "Foshan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广州南汽车客运站",
+    "English": "Guangzhou Southern Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "官窑客运站",
+    "English": "Guaiyao Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "佛山市城巴总站",
+    "English": "Foshan Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "花都区汽车客运站",
+    "English": "Huadu District Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "佛山市石湾汽车客运站",
+    "English": "Shiwan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "顺德汽车客运总站",
+    "English": "Shunde Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "三水车站",
+    "English": "Sanshui Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "西樵汽车客运站",
+    "English": "Xiqiao Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "新塘客运站",
+    "English": "Xintang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "高明客运站",
+    "English": "Gaoming Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南城汽车客运总站",
+    "English": "Southern City Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "东莞中堂车站",
+    "English": "Zhongtang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "小榄车站",
+    "English": "Xiaolan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "祈福汽车站",
+    "English": "Qifu Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "鹤山汽车总站",
+    "English": "Heshan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "道滘汽车客运站",
+    "English": "Daojiao Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "东莞汽车客运东站",
+    "English": "Dongguan Eastern Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "虎门汽车客运总站",
+    "English": "Humen Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南庄汽车客运站",
+    "English": "Nanzhuang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "从化汽车站",
+    "English": "Conghua Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广州南站枢纽客运站",
+    "English": "Guangzhou Southern Coach Station Hub"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "江门汽车总站",
+    "English": "Jiangmen Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "肇庆高新区粤运汽车站大旺站",
+    "English": "Dawang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "坚美车站",
+    "English": "Jianmei Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "金利利通车站",
+    "English": "Jinlilitong Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "石龙客运中心站",
+    "English": "Shilong Coach Station Hub"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "长安汽车站",
+    "English": "Changan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "中山汽车总站",
+    "English": "Zhongshan Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "四会粤运汽车站",
+    "English": "Sihui Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "大塘汽车站",
+    "English": "Datang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "鳌头客运站",
+    "English": "Aotou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "增城客运站",
+    "English": "Zengcheng Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "江门市胜利汽车客运站",
+    "English": "Shengli Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "槎山客运站",
+    "English": "Chashan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "松山湖汽车客运站",
+    "English": "Songshan Lake Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "江门市城区客运站",
+    "English": "Jiangmen City Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "棠下客运站",
+    "English": "Tangxia Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "石排汽车客运站",
+    "English": "Shipai Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南山汽车客运站",
+    "English": "Nanshan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "博罗县石湾汽车客运站",
+    "English": "Shiwan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "务庄车站",
+    "English": "Wuzhuang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "珊瑚汽车总站",
+    "English": "Shanhu Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "派潭客运站",
+    "English": "Paitan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "园洲客运站",
+    "English": "Yuanzhou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "江海汽车客运站",
+    "English": "Jianghai Coach Station "
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "新桥中心客运站",
+    "English": "Xinqiao Coach Station Hub"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "大鳌客运站",
+    "English": "Daao Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "从化温泉客运站",
+    "English": "Conghua Wenquan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "常平汽车客运站",
+    "English": "Changping Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "潮连车站",
+    "English": "Chaolian Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "四会粤运汽车站(东城分站)",
+    "English": "Sihui Coach Station (Eastern Sub-station)"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "大涌车站",
+    "English": "Dayong Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "睦洲客运站",
+    "English": "Muzhou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "深圳机场汽车站",
+    "English": "Baoan Airport Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "濠头车站",
+    "English": "Haotou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "沙朗车站",
+    "English": "Shalang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "地豆客运站",
+    "English": "Didou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "长宁镇汽车客运站",
+    "English": "Changning Town Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "肇庆交投汽车运输有限公司肇庆客运总站",
+    "English": "Zhaoqing Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "地豆汽车站",
+    "English": "Didou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "大岗汽车客运站(暂停营业)",
+    "English": "Dagang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "肇庆新区客运站(建设中)",
+    "English": "Zhaoqing New District Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "福田客运站",
+    "English": "Futian Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "合水车站",
+    "English": "Heshui Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "大泽客运站",
+    "English": "Daze Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "隆盛达长途站",
+    "English": "Longshengda Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "中大南方汽车总站",
+    "English": "Zhongda Southern Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "永汉车站",
+    "English": "Yonghan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "宝安汽车站",
+    "English": "Baoan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "鹤山工业城客运站",
+    "English": "Heshan Industrial City Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "开平市水口客运站",
+    "English": "Shuikou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "春水客运站",
+    "English": "Chunshui Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "塘厦客运站",
+    "English": "Tangxia Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "龙华汽车站",
+    "English": "Longhua Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "石涧汽车客运站",
+    "English": "Shijian Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "麻榨客运站",
+    "English": "Mazha Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "鹅溪车站",
+    "English": "Exi Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "江屯安捷客运站",
+    "English": "Jiangtun Anjie Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "清溪汽车客运站",
+    "English": "Qingxi Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南山汽车站",
+    "English": "Nanshan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "宅梧客运站",
+    "English": "Zhaiwu Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "小湘客运站",
+    "English": "Xiaoxiang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "富美车站",
+    "English": "Fumei Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "唐家汽车客运站",
+    "English": "Tangjia Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "通宝场站",
+    "English": "Tongbaochang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "双合客运站",
+    "English": "Shuanghe Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "深圳北汽车客运站",
+    "English": "Northern Shenzhen Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "金斗湾客运站",
+    "English": "Jindou Bay Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南溪汽车客运站",
+    "English": "Nanxi Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "南山汽车站湾口岸客运服务点",
+    "English": "Nanshan Port Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "翠山湖客运站",
+    "English": "Cuishan Lake Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "香洲长途站",
+    "English": "Xiangzhou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "惠州市沥林汽车客运站",
+    "English": "Lilin Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "河南岸汽车站",
+    "English": "Southern River Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "岐关车站",
+    "English": "Qiguan Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "惠州北站汽车客运站",
+    "English": "Huizhou Northern Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "广海车站",
+    "English": "Guanghai Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "珠海机场汽车客运站",
+    "English": "Zhuhai Airport Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "圣堂客运站",
+    "English": "Shengtang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "横琴口岸汽车客运站",
+    "English": "Hengqin Port Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "赤坑客运站",
+    "English": "Chikeng Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "播植镇农村客运站",
+    "English": "Bozhi Town Rural Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "深圳市皇岗汽车站",
+    "English": "Huanggang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "下帅客运站",
+    "English": "XiaShuai Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "火车站公共汽车总站",
+    "English": "Railway Coach Station Terminal"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "松坑客运站",
+    "English": "Songkang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "马冈客运站",
+    "English": "Magang Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "丹竹头客运站",
+    "English": "Danzhutou Coach Station"
+  },
+  {
+    "Type": "Coach Station",
+    "Chinese": "龙门县汽车客运总站",
+    "English": "Longmen County Coach Station Terminal"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Guangzhou Baiyun International Airport",
+    "English": "Guangzhou Baiyun International Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Foshan Shadi Airport",
+    "English": "Foshan Shadi Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Shenzhen Bao'an International Airport",
+    "English": "Shenzhen Bao'an International Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Huizhou Pingtan Airport",
+    "English": "Huizhou Pingtan Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "\tZhuhai Jinwan Airport",
+    "English": "\tZhuhai Jinwan Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Hong Kong International Airport",
+    "English": "Hong Kong International Airport"
+  },
+  {
+    "Type": "Airport",
+    "Chinese": "Macau International Airport",
+    "English": "Macau International Airport"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "北滘站",
+    "English": "Beijiao Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "碧江站",
+    "English": "Bijiang Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "常平站",
+    "English": "Changping Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "东莞东站",
+    "English": "Dongguan Eastern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "东莞站",
+    "English": "Dongguan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "东升站",
+    "English": "Dongsheng Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "佛山站",
+    "English": "Foshan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "古镇站",
+    "English": "Guzhen Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "光明城站",
+    "English": "Guangming City Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "广宁站",
+    "English": "Guangning Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "广州北站",
+    "English": "Guangzhou Northern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "广州东站",
+    "English": "Guangzhou Eastern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "广州南站",
+    "English": "Guangzhou Southern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "广州站",
+    "English": "Guangzhou Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "虎门站",
+    "English": "Humen Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "怀集站",
+    "English": "Huaiji Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "惠东站",
+    "English": "Huizhou Eastern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "惠州南站",
+    "English": "Huizhou Southern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "惠州西站",
+    "English": "Huizhou Western Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "惠州站",
+    "English": "Huizhou Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "江门站",
+    "English": "Jiangmen Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "明珠站",
+    "English": "Mingzhu Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "南朗站",
+    "English": "Nanlang Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "南头站",
+    "English": "Nantou Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "前山站",
+    "English": "Qianshan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "庆盛站",
+    "English": "Qingsheng Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "容桂站",
+    "English": "Ronggui Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "三水南站",
+    "English": "Sanshui Southern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "三水站",
+    "English": "Sanshui Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "深圳北站",
+    "English": "Shenzhen Northern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "深圳东站",
+    "English": "Shenzhen Eastern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "深圳坪山站",
+    "English": "Pingshan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "深圳西站",
+    "English": "Shenzhen Western Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "深圳站",
+    "English": "Shenzhen Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "顺德学院站",
+    "English": "Shunde College Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "顺德站",
+    "English": "Shunde Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "唐家湾站",
+    "English": "Tangjia Bay Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "西九龙站",
+    "English": "Western Jiulong Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "小榄站",
+    "English": "Xiaolan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "新会站",
+    "English": "Xinhui Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "樟木头站",
+    "English": "Zhangmutou Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "肇庆东站",
+    "English": "Zhaoqing Eastern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "肇庆站",
+    "English": "Zhaoqing Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "中山北站",
+    "English": "Zhongshan Northern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "中山站",
+    "English": "Zhongshan Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "珠海北站",
+    "English": "Zhuhai Northern Station"
+  },
+  {
+    "Type": "Railway Station",
+    "Chinese": "珠海站",
+    "English": "Zhuhai Station"
+  }
+]

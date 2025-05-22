@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GBA Multi-View Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #f4f4f4;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 30px;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      z-index: 99999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .navbar a, .navbar button {
+      font-weight: bold;
+      font-size: 15px;
+      color: #000;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    .navbar a:hover, .navbar button:hover {
+      background-color: #eee;
+      border-radius: 4px;
+    }
+
+    .dropdown {
+      position: relative;
+      z-index: 99999;
+    }
+
+.dropdown-content {
+  display: none;
+  min-width: 160px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  border-radius: 6px;
+  position: fixed; /* 必须固定定位 */
+}
+
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 14px;
+      text-decoration: none;
+      color: #000;
+      font-size: 14px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f2f2f2;
+    }
+
+    .section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      flex-direction: column;
+      padding-top: 100px;
+    }
+
+    iframe {
+      width: 90%;
+      height: 80vh;
+      border: none;
+      position: relative;
+      z-index: 0;
+      pointer-events: auto;
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 9999;
+    }
+
+    .indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #fff;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background-color: #4375aa;
+      border-color: #004794;
+    }
+        /* --- 自定义灰色滚动条 --- */
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #222; /* 滚动条背景轨道颜色 */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动块颜色（灰色） */
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #777; /* 鼠标悬停时颜色 */
+}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#introduction">Introduction</a>
+    <div class="dropdown">
+      <button onclick="toggleDropdown(event)">Part 1 ▾</button>
+      <div class="dropdown-content">
+        <a href="#part1_cover">Brief Introduction</a>
+        <a href="#part1_network">Network</a>
+        <a href="#part1_heatmap">Heatmap</a>
+        <a href="#part1_chart">Chart</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button onclick="toggleDropdown(event)">Part 2 ▾</button>
+      <div class="dropdown-content">
+        <a href="#part2_cover">Brief Introduction</a>
+        <a href="#part2_flow">Mobility Flow</a>
+        <a href="#part2_monthly">Monthly Flow</a>
+        <a href="#part2_centrality">Centrality</a>
+        <a href="#part2_radar">Radar</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button onclick="toggleDropdown(event)">Part 3 ▾</button>
+      <div class="dropdown-content">
+        <a href="#part3_cover">Brief Introduction</a>
+        <a href="#part3_accessibility">Accessibility Map</a>
+        <a href="#part3_viewer">Accessibility Viewer</a>
+        <a href="#part3_bivariate">Bivariate Map</a>
+      </div>
+    </div>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#reference">Reference</a>
+    <a href="#acknowledgement">Acknowledgement</a>
+  </div>
+
+<!-- 页面其余结构保持不变 -->
+
+
+
+
+  <div class="scroll-indicator">
+    <div class="indicator" data-target="home"></div>
+    <div class="indicator" data-target="introduction"></div>
+    <div class="indicator" data-target="part1_cover"></div>
+    <div class="indicator" data-target="part1_network"></div>
+    <div class="indicator" data-target="part1_heatmap"></div>
+    <div class="indicator" data-target="part1_chart"></div>
+    <div class="indicator" data-target="part2_cover"></div>
+    <div class="indicator" data-target="part2_flow"></div>
+    <div class="indicator" data-target="part2_monthly"></div>
+    <div class="indicator" data-target="part2_centrality"></div>
+    <div class="indicator" data-target="part2_radar"></div>
+    <div class="indicator" data-target="part3_cover"></div>
+    <div class="indicator" data-target="part3_accessibility"></div>
+    <div class="indicator" data-target="part3_viewer"></div>
+    <div class="indicator" data-target="part3_bivariate"></div>
+    <div class="indicator" data-target="conclusion"></div>
+    <div class="indicator" data-target="reference"></div>
+    <div class="indicator" data-target="acknowledgement"></div>
+  </div>
+
+  <div id="home" class="section">
+    <h1>Bridging the Bay: Transport Infrastructure, Mobility Patterns, and Equity in the Greater Bay Area</h1>
+    <p>Group 19: Han SHAN, Xinyi LIN, Yezhen ZHANG</p>
+  </div>
+
+  <div id="introduction" class="section">
+    <h1>Introduction</h1>
+    <p>
+      Overarching Theme: To examine how the development of transport infrastructure in the Greater Bay Area (GBA) shapes human mobility patterns and whether the resulting transport system is equitable.
+      <br>
+      Research Questions:
+      <br>
+      - What is the spatial distribution of transport infrastructure in the GBA, and how has its throughput evolved over time?
+      <br>
+      - How do mobility flow patterns between cities in the GBA differ, and which cities serve as central hubs?
+      <br>
+      - Are there disparities in accessibility and equity within the current transport system in the GBA?
+    </p>
+  </div>
+
+<div id="part1_cover" class="section">
+  <div style="color: white; padding: 10px; font-size: 14px; font-family: Arial, sans-serif;">
+    Part 1 - Transport Infrastructure 
+     <p>What is the spatial distribution of transport infrastructure in the GBA, and how has its throughput evolved over time? </p>
+
+  </div>
+  <iframe src="part1_2/cover.html" title="Part 1 Cover Overview"></iframe>
+</div>
+<div id="part1_network" class="section">
+  <iframe src="part1_2/network.html" title="Part 1 Network Visualization"></iframe>
+</div>
+<div id="part1_heatmap" class="section">
+  <iframe src="part1_2/Heatmap.html" title="Part 1 Heatmap of Station Demand"></iframe>
+</div>
+<div id="part1_chart" class="section">
+  <iframe src="part1_2/Chart_final.html" title="Part 1 Statistical Charts"></iframe>
+</div>
+
+<div id="part2_cover" class="section">
+  <div style="color: white; padding: 10px; font-size: 14px; font-family: Arial, sans-serif;">
+    Part 2 - Mobility Patterns and Structure
+    <p>How do mobility flow patterns between cities in the GBA differ, and which cities serve as central hubs?</p>
+  </div>
+  <iframe src="part2/cover.html" title="Part 2 Cover Overview"></iframe>
+</div>
+<div id="part2_flow" class="section">
+  <iframe src="part2/part2_1.html" title="Part 2 OD Flow Analysis"></iframe>
+</div>
+<div id="part2_monthly" class="section">
+  <iframe src="part2/part2_2.html" title="Part 2 Monthly Pattern Analysis"></iframe>
+</div>
+<div id="part2_centrality" class="section">
+  <iframe src="part2/part2_3_2.html" title="Part 2 Centrality Analysis"></iframe>
+</div>
+<div id="part2_radar" class="section">
+  <iframe src="part2/part2_4.html" title="Part 2 Radar Comparison"></iframe>
+</div>
+
+<div id="part3_cover" class="section">
+  <div style="color: white; padding: 10px; font-size: 14px; font-family: Arial, sans-serif;">
+    Part 3 – Accessibility and Equity
+    <p>Are there disparities in accessibility and equity within the current transport system in the GBA?</p>
+  </div>
+  <iframe src="part3/cover.html" title="Part 3 Cover Overview"></iframe>
+</div>
+<div id="part3_accessibility" class="section">
+  <iframe src="part3/part3_1_2.html" title="Part 3 Accessibility Isochrones"></iframe>
+</div>
+<div id="part3_viewer" class="section">
+  <iframe src="part3/part3_2_2.html" title="Part 3 Interactive Data Viewer"></iframe>
+</div>
+<div id="part3_bivariate" class="section">
+  <iframe src="part3/part3_3_2.html" title="Part 3 Bivariate Map: Accessibility vs GDP"></iframe>
+</div>
+
+
+  <div id="conclusion" class="section">
+    <h1>Conclusion</h1>
+    <p>Limitations</p>
+      <p>The missing data can influence the evaluation of the throughput patterns at GBA. (Part 1)</p>
+      <p>Low temporal and spatial resolution. (Part 2)</p>
+      <p>The method to calculate the index of accessibility is over-simple. (Part 3)</p>
+    <p>Conclusion</p>
+    <p>The core area of the GBA has denser infrastructure. In passenger transport, railway usage has increased while road usage has declined; in freight transport, all modes except railway have increased.</p>
+<p>Mobility flow patterns in the GBA show stable total flows but dynamic net flow across different days. Guangzhou serves as the overall central hub.</p>
+<p>There are spatial disparities in accessibility, with low-income areas particularly experiencing poor access to transport services.</p>
+
+  </div>
+
+  <div id="reference" class="section">
+    <h1>Reference</h1>
+    <p>This is the reference page content.</p>
+  </div>
+
+  <div id="acknowledgement" class="section">
+    <h1>Acknowledgement</h1>
+    <p>This is the acknowledgement page content.</p>
+  </div>
+
+  <script>
+    const indicators = document.querySelectorAll('.indicator');
+    const sections = document.querySelectorAll('.section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateIndicators(entry.target.id);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    sections.forEach(section => observer.observe(section));
+
+    function updateIndicators(currentId) {
+      indicators.forEach(ind => {
+        ind.classList.toggle('active', ind.getAttribute('data-target') === currentId);
+      });
+    }
+
+    indicators.forEach(ind => {
+      ind.addEventListener('click', () => {
+        const id = ind.getAttribute('data-target');
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+let openDropdown = null;
+
+function toggleDropdown(event) {
+  event.stopPropagation();
+
+  // 关闭之前展开的菜单
+  if (openDropdown && openDropdown !== event.currentTarget.nextElementSibling) {
+    openDropdown.style.display = 'none';
+  }
+
+  const dropdown = event.currentTarget.nextElementSibling;
+  const rect = event.currentTarget.getBoundingClientRect();
+
+  // 创建或移动浮动菜单容器
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  dropdown.style.position = 'fixed';
+  dropdown.style.top = rect.bottom + 'px';
+  dropdown.style.left = rect.left + 'px';
+  dropdown.style.zIndex = 2147483647;
+  dropdown.style.boxShadow = '0 2px 10px rgba(0,0,0,0.4)';
+  dropdown.style.borderRadius = '6px';
+  dropdown.style.background = '#fff';
+
+  openDropdown = dropdown;
+}
+
+// 点击空白处自动关闭菜单
+window.addEventListener('click', function () {
+  if (openDropdown) {
+    openDropdown.style.display = 'none';
+    openDropdown = null;
+  }
+});
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-content').forEach(dc => dc.style.display = 'none');
+    });
+  </script>
+</body>
+</html>

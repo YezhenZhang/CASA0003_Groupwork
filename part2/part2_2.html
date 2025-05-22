@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GBA Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://unpkg.com/mapbox-gl-compare@0.4.0/dist/mapbox-gl-compare.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+  <script src="https://unpkg.com/mapbox-gl-compare@0.4.0/dist/mapbox-gl-compare.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-snap-type: y mandatory;
+      overflow-y: hidden;
+      height: 100%;
+    }
+    .page {
+      height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+</head>
+  
+  
+<body>
+<!----page 2---->
+<div id="page2" class="page">
+  <style>
+
+#page2 {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #000000;
+  color: #eee;
+  overflow: hidden;
+}
+
+#page2 #buttons {
+      margin: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+#page2 #buttons button {
+      margin: 4px;
+      padding: 6px 12px;
+      background: #333;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+#page2 #buttons button.active {
+      background: #8da0cb;
+    }
+#page2 #charts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 8px 16px 16px;
+      height: calc(100vh - 160px);
+      box-sizing: border-box;
+      justify-items: center;
+    }
+#page2 .chart-container {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 36px 6px 6px 6px;
+      width: 90%;
+      height: 100%;
+      position: relative;
+      box-sizing: border-box;
+      
+    }
+#page2 .chart-container.fullscreen {
+      grid-column: 1 / span 3;
+      width: 100%;
+      height: 100%;
+    }
+#page2 .chart-label {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      z-index: 10;
+    }
+#page2 .legend-fixed {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 13px;
+      color: #eee;
+    }
+#page2 .legend-fixed span {
+      margin-right: 12px;
+    }
+#page2 .legend-color {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 4px;
+      border-radius: 2px;
+    }
+#page2 canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      z-index: 1;
+    }
+#page2 h2 {
+      text-align: center;
+      margin: 16px 0 0;
+    }
+  
+#page2 #time-selector button {
+  margin: 6px 6px 10px;
+  padding: 6px 14px;
+  background: #555;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#page2 #time-selector button.active {
+  background: #8da0cb;
+}
+
+  
+</style>
+  
+<h2>Monthly Flow per City (In/Out/Net)</h2>
+
+<!-- 时间选择按钮 -->
+<div id="time-selector" style="text-align:center; margin-top: 10px;">
+  <button class="time-btn active" data-time="monthly">Monthly</button>
+  <button class="time-btn" data-time="weekly">Weekly</button>
+  <button class="time-btn" data-time="holiday">Holiday</button>
+</div>
+  
+<div class="legend-fixed">
+  <span><span class="legend-color" style="background:#66c2a5"></span>In-Flow</span>
+  <span><span class="legend-color" style="background:#fc8d62"></span>Out-Flow</span>
+  <span><span class="legend-color" style="background:#8da0cb"></span>Net Positive</span>
+  <span><span class="legend-color" style="background:#e78ac3"></span>Net Negative</span>
+</div>
+  
+<div id="buttons"></div>
+  
+<div id="charts"></div>
+
+</div>
+
+
+<script>
+  
+let currentTimeType = 'monthly';
+
+const timeFiles = {
+  monthly: 'data/2_3_twoway_flow/monthly_city_flow_summary.csv',
+  weekly: 'data/2_3_twoway_flow/weekly_city_flow_summary.csv',
+  holiday: 'data/2_3_twoway_flow/holiday_city_flow_summary.csv',
+};
+
+function loadDataAndRender(timeType) {
+  d3.csv(timeFiles[timeType]).then(data => {
+    data.forEach(d => {
+      d.in_flow = +d.in_flow;
+      d.out_flow = +d.out_flow;
+      d.net_flow = +d.net_flow;
+    });
+
+    const cities = Array.from(new Set(data.map(d => d.city)));
+    const groupedData = d3.group(data, d => d.city);
+
+    const allValues = data.flatMap(d => [d.in_flow, d.out_flow, d.net_flow]);
+    const yMin = Math.floor(Math.min(...allValues) / 50) * 50;
+    const yMax = Math.ceil(Math.max(...allValues) / 50) * 50;
+
+    const chartMap = new Map();
+    const btnContainer = d3.select("#buttons");
+    btnContainer.html("");
+
+    btnContainer.append("button")
+      .text("ALL")
+      .attr("class", "active")
+      .attr("data-city", "ALL")
+      .on("click", () => showAll(chartMap));
+
+    cities.forEach(city => {
+      btnContainer.append("button")
+        .text(city)
+        .attr("data-city", city)
+        .on("click", () => showCity(city, chartMap));
+    });
+
+    const chartDiv = d3.select("#charts");
+    chartDiv.html("");
+
+    cities.forEach(city => {
+      const container = chartDiv.append("div")
+        .attr("class", "chart-container")
+        .attr("id", `chart-${city}`);
+
+      container.append("div")
+        .attr("class", "chart-label")
+        .text(city);
+
+      const canvas = container.append("canvas").node();
+      const ctx = canvas.getContext("2d");
+
+      const records = groupedData.get(city);
+      const xLabels = records.map(d => d.date);
+
+      const inFlow = records.map(d => d.in_flow);
+      const outFlow = records.map(d => d.out_flow);
+      const netFlow = records.map(d => d.net_flow);
+
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: xLabels,
+          datasets: [
+            {
+              type: 'line',
+              label: 'In-Flow',
+              data: inFlow,
+              borderColor: '#66c2a5',
+              backgroundColor: '#66c2a5',
+              tension: 0.3,
+              borderWidth: 1,
+              yAxisID: 'y',
+              pointRadius: 2,
+              pointHoverRadius: 3,
+            },
+            {
+              type: 'line',
+              label: 'Out-Flow',
+              data: outFlow,
+              borderColor: '#fc8d62',
+              backgroundColor: '#fc8d62',
+              tension: 0.3,
+              borderWidth: 1,
+              yAxisID: 'y',
+              pointRadius: 2,
+              pointHoverRadius: 3,
+            },
+            {
+              type: 'bar',
+              label: 'Net Flow',
+              data: netFlow,
+              backgroundColor: netFlow.map(v => v >= 0 ? '#8da0cb' : '#e78ac3'),
+              yAxisID: 'y'
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              min: yMin,
+              max: yMax,
+              ticks: {
+                stepSize: 100,
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              enabled: true,
+              mode: 'index',
+              intersect: false,
+              position: 'nearest',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              titleFont: { size: 12 },
+              bodyFont: { size: 11 },
+              padding: 8
+            },
+            legend: { display: false }
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+
+      chartMap.set(city, container);
+    });
+
+    showAll(chartMap);
+  });
+}
+
+function showAll(chartMap) {
+  d3.selectAll("#buttons button").classed("active", false);
+  d3.select("#buttons button[data-city='ALL']").classed("active", true);
+  d3.select("#charts")
+    .style("display", "grid")
+    .style("grid-template-columns", "repeat(3, 1fr)");
+  chartMap.forEach(div => div.style("display", "block").classed("fullscreen", false));
+}
+
+function showCity(city, chartMap) {
+  d3.selectAll("#buttons button").classed("active", false);
+  d3.select(`#buttons button[data-city='${city}']`).classed("active", true);
+  d3.select("#charts")
+    .style("display", "flex")
+    .style("flex-wrap", "nowrap")
+    .style("justify-content", "center")
+    .style("align-items", "center");
+  chartMap.forEach((div, key) => {
+    div.style("display", key === city ? "block" : "none")
+      .classed("fullscreen", key === city);
+  });
+}
+
+// 初始化加载
+loadDataAndRender(currentTimeType);
+
+// 监听时间维度按钮
+d3.selectAll(".time-btn").on("click", function () {
+  d3.selectAll(".time-btn").classed("active", false);
+  d3.select(this).classed("active", true);
+  currentTimeType = this.dataset.time;
+  loadDataAndRender(currentTimeType);
+});
+  
+  </script>
+
+</body>
+</html>
