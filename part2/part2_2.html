@@ -89,14 +89,16 @@
       height: 100%;
     }
 #page2 .chart-label {
-      position: absolute;
-      top: 8px;
-      left: 10px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-      z-index: 10;
-    }
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 10;
+}
+
 #page2 .legend-fixed {
       position: absolute;
       top: 16px;
@@ -224,7 +226,30 @@ function loadDataAndRender(timeType) {
       const ctx = canvas.getContext("2d");
 
       const records = groupedData.get(city);
-      const xLabels = records.map(d => d.date);
+const xLabels = records.map(d => {
+  const dateStr = d.date;
+
+  // Format: "20240210" → split into year/month/day
+  if (/^\d{8}$/.test(dateStr)) {
+    const year = dateStr.slice(0, 4);
+    const month = dateStr.slice(4, 6);
+    const day = dateStr.slice(6, 8);
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+
+    if (isNaN(parsedDate)) return "Invalid";
+
+    if (timeType === "weekly") {
+      return parsedDate.toLocaleDateString('en-US', { weekday: 'short' }); // Mon, Tue, ...
+    } else if (timeType === "holiday") {
+      return parsedDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }); // MM/DD
+    } else {
+      return d.date; 
+    }
+  } else {
+    return d.date;
+  }
+});
+
 
       const inFlow = records.map(d => d.in_flow);
       const outFlow = records.map(d => d.out_flow);
