@@ -72,16 +72,16 @@
 }
 
 .sidebar::-webkit-scrollbar-track {
-  background: #1a1a1a; /* 滚动条轨道背景 */
+  background: #1a1a1a; /* Scrollbar track background */
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #888; /* 滚动条本体颜色 */
+  background-color: #888; /* Scrollbar thumb color */
   border-radius: 4px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-  background: #aaa; /* 鼠标悬停时颜色 */
+  background: #aaa; /* Thumb color on hover */
 }
 
     
@@ -220,7 +220,7 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', () => {
-  // ✅ 添加 CARTO Dark No Labels 作为 raster 底图
+  // Add CARTO Dark No Labels as raster base map
   map.addSource('carto-dark', {
     type: 'raster',
     tiles: [
@@ -308,7 +308,7 @@ map.on('mousemove', (e) => {
   }
 });
 
-// 提前加载全体边界 GeoJSON
+
 let boundaryGeoJSON = null;
 //fetch('GBA_merged_boundary.geojson')
 //  .then(res => res.json())
@@ -335,7 +335,7 @@ map.on('click', (e) => {
   if (features.length > 0 && boundaryGeoJSON) {
     const clickedName = features[0].properties.NAME_2 || features[0].properties.name;
 
-    // 从完整 GeoJSON 中筛选所有匹配区域
+    // Filter all matching regions from the full GeoJSON
     const matched = boundaryGeoJSON.features.filter(f =>
       (f.properties.NAME_2 || f.properties.name) === clickedName
     );
@@ -407,7 +407,7 @@ function switchLayer(name) {
   }
 }
 
-// ⬅️ 控制侧边栏收起展开
+// Toggle sidebar collapse/expand
 document.getElementById('toggleSidebar').addEventListener('click', function () {
   const sidebar = document.getElementById('sidebar');
   sidebar.classList.toggle('collapsed');

@@ -104,7 +104,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
 (async function () {
-  // 颜色配置集中管理
+  // Centralized color configuration for each transport mode
   const colorDict = {
     airport: "#fff200",
     port: "#86f4f0",
@@ -118,7 +118,7 @@
     attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: "abcd", maxZoom: 19
   }).addTo(map);
 
-  // 鼠标框选禁用
+  // Disable mouse drag selection on the map
   document.addEventListener("dragstart", e => e.preventDefault(), true);
   document.addEventListener("selectstart", e => e.preventDefault(), true);
   document.addEventListener("mousedown", e => { if (e.buttons === 1) e.preventDefault(); }, true);
@@ -198,7 +198,7 @@
 
   Object.values(layerMap).forEach(l => l.addTo(map));
 
-  // ✅ 控制缩放级别变化时更新半径（加入节流）
+  // Update marker radius on zoom (with throttling)
   let zoomTimer = null;
   map.on("zoomend", () => {
     clearTimeout(zoomTimer);
@@ -211,18 +211,18 @@
     }, 150);
   });
 
-  // ✅ 构建控制器与图例
+  // Build layer controls and legend
   const layerControls = document.getElementById("layer-controls");
   const legendBox = document.getElementById("legend-box");
   Object.entries(colorDict).forEach(([key, color]) => {
     const label = key.charAt(0).toUpperCase() + key.slice(1).replace("way", "way"); // 保持原词
 
-    // 复选框
+    // Checkbox for layer visibility toggle
     const control = document.createElement("label");
     control.innerHTML = `<input type="checkbox" id="${key}" checked /> ${label}`;
     layerControls.appendChild(control);
 
-    // 图例
+    // Legend symbol for the layer
     const item = document.createElement("div");
     const span = document.createElement("span");
     span.style.backgroundColor = color;
@@ -231,14 +231,14 @@
     item.appendChild(document.createTextNode(label));
     legendBox.appendChild(item);
 
-    // 控制逻辑
+    // Toggle layer visibility on checkbox change
     document.getElementById(key).addEventListener("change", e => {
       if (e.target.checked) map.addLayer(layerMap[key]);
       else map.removeLayer(layerMap[key]);
     });
   });
 
-  // ✅ 加载行政边界图层
+  // Load administrative boundary layer
   fetch("GBA_merged_boundary.geojson")
     .then(res => res.json())
     .then(data => {
@@ -271,6 +271,6 @@
       this.innerHTML = sidebar.classList.contains('collapsed') ? '&#9654;' : '&#9664;';
     });
   </script>
-  <!-- 其余脚本请保留原功能部分并移入此结构中 -->
+  
 </body>
 </html>

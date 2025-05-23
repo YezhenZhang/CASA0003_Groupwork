@@ -245,7 +245,7 @@ let openDropdown = null;
 function toggleDropdown(event) {
   event.stopPropagation();
 
-  // 关闭之前展开的菜单
+  // Close the previously opened menu
   if (openDropdown && openDropdown !== event.currentTarget.nextElementSibling) {
     openDropdown.style.display = 'none';
   }
@@ -253,7 +253,7 @@ function toggleDropdown(event) {
   const dropdown = event.currentTarget.nextElementSibling;
   const rect = event.currentTarget.getBoundingClientRect();
 
-  // 创建或移动浮动菜单容器
+  // Create or move the floating dropdown container
   dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
   dropdown.style.position = 'fixed';
   dropdown.style.top = rect.bottom + 'px';
@@ -266,7 +266,7 @@ function toggleDropdown(event) {
   openDropdown = dropdown;
 }
 
-// 点击空白处自动关闭菜单
+// Close the dropdown when clicking outside
 window.addEventListener('click', function () {
   if (openDropdown) {
     openDropdown.style.display = 'none';

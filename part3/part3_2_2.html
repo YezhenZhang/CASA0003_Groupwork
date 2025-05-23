@@ -153,17 +153,17 @@
     
     
 #sidebar::-webkit-scrollbar-track {
-  background: #333;  /* 滚动条背景轨道 */
+  background: #333;  
   border-radius: 4px;
 }
 
 #sidebar::-webkit-scrollbar-thumb {
-  background: #888;  /* 滚动条本体（就是“滑块”）*/
+  background: #888;  
   border-radius: 4px;
 }
 
 #sidebar::-webkit-scrollbar-thumb:hover {
-  background: #aaa;  /* 鼠标悬停时颜色 */
+  background: #aaa;  
 }
 
     .subtitle {
@@ -206,7 +206,7 @@
         <div class="section-title">Top 5 Regions</div>
         <canvas id="barChart"></canvas>
       </div>
-      <!-- 移动后的 Data sources 部分 -->
+      <!-- Data Sources Section -->
       <div style="font-size: 12px; margin-top: 8px; color: #bbb;">
         <div style="margin-bottom: 4px; font-weight: bold;">Data sources:</div>
         <div><a href="https://hub.worldpop.org/geodata/summary?id=24264" target="_blank" style="color: #8899aa;">WorldPop</a></div>
@@ -402,7 +402,7 @@
         console.error(err);
       });
 
-    // 控制器展开收起逻辑
+    // Sidebar toggle logic
     document.getElementById('toggleSidebar').addEventListener('click', function () {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('collapsed');

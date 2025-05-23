@@ -1,4 +1,4 @@
-// ✅ 初始化地图
+// Initialize the map
 const map1 = L.map('map1_main', { zoomControl: false }).setView([23.1, 113.3], 8);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap contributors, &copy; CartoDB'
@@ -186,13 +186,13 @@ function bindIsochroneCheckbox1(mins) {
 ['15', '20', '30'].forEach(bindIsochroneCheckbox1);
 
 document.getElementById('clear-btn').addEventListener('click', () => {
-  // 1. 移除当前点击站点的等时圈图层
+  // 1. Remove isochrone layers for the currently selected station
   Object.values(isochroneLayers1).forEach(layer => {
     if (layer) map1.removeLayer(layer);
   });
   Object.keys(isochroneLayers1).forEach(k => delete isochroneLayers1[k]);
 
-  // 2. 移除所有 merged 合并图层
+  // 2. Remove all merged isochrone layers
   Object.entries(mergedLayers1).forEach(([mins, layer]) => {
     if (layer) {
       map1.removeLayer(layer);
@@ -200,7 +200,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
     }
   });
 
-  // 3. 重置所有 checkbox 状态
+  // 3. Reset all checkbox states
   ['15', '20', '30'].forEach(mins => {
     const cb = document.getElementById(`checkbox-${mins}`);
     const mergedCb = document.getElementById(`merged-${mins}`);
@@ -208,7 +208,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
     if (mergedCb) mergedCb.checked = false;
   });
 
-  // 4. 重置选中站点 marker
+  // 4.Reset the selected station marker
   if (activeStationMarker1) {
     activeStationMarker1.setStyle({
       fillColor: '#5a6ea0',
@@ -219,7 +219,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
     activeStationMarker1 = null;
   }
 
-  // 5. 清空当前文件 ID
+  // 5. Clear the currently active file ID
   activeFileId1 = null;
 });
 

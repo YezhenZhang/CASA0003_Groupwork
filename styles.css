@@ -1,4 +1,4 @@
-/* 基础设置 */
+/* Base Settings */
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* 滚动条样式 */
+/* Scrollbar Styles */
 body::-webkit-scrollbar {
   width: 8px;
 }
@@ -28,7 +28,7 @@ body::-webkit-scrollbar-track {
   background: #222;
 }
 
-/* 顶部导航栏 */
+/* Top Navigation Bar */
 .navbar {
   position: fixed;
   top: 0;
@@ -41,7 +41,7 @@ body::-webkit-scrollbar-track {
   align-items: center;
   z-index: 99999;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  justify-content: center;  /* 水平居中 */
+  justify-content: center;  
 }
 .navbar a,
 .navbar button {
@@ -60,7 +60,7 @@ body::-webkit-scrollbar-track {
   border-radius: 4px;
 }
 
-/* 下拉菜单 */
+/* Dropdown Menu */
 .dropdown {
   position: relative;
   z-index: 99999;
@@ -85,7 +85,7 @@ body::-webkit-scrollbar-track {
   background-color: #f2f2f2;
 }
 
-/* section布局 */
+/* Section Layout */
 .section {
   height: 100vh;
   display: flex;
@@ -96,7 +96,7 @@ body::-webkit-scrollbar-track {
   padding-top: 100px;
 }
 
-/* iframe通用样式 */
+/* Common Styles for Iframes */
 iframe {
   width: 90%;
   height: 80vh;
@@ -106,7 +106,7 @@ iframe {
   pointer-events: auto;
 }
 
-/* 滚动指示器 */
+/* Scroll Indicators */
 .scroll-indicator {
   position: fixed;
   top: 50%;
@@ -130,7 +130,7 @@ iframe {
   border-color: #004794;
 }
 
-/* 首页背景 */
+/* Homepage Background */
 #home {
   position: relative;
   background-image: url('hongkong.jpg');
@@ -161,7 +161,7 @@ iframe {
   padding-left: 20px;
 }
 
-/* hero 样式 */
+/* Hero Section Style */
 .hero {
   background-image: url('your_background.jpg');
   background-size: cover;
@@ -216,7 +216,7 @@ iframe {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* intro/conclusion/content 样式统一化 */
+/* Unified Styles for Intro, Conclusion, and Content Sections */
 .intro-section,
 .conclusion-section,
 .content-section {
@@ -277,7 +277,7 @@ iframe {
   color: #67aabc;
 }
 
-/* part-cover 样式 */
+/* Styles for Part Cover Sections */
 .part-cover {
   background: linear-gradient(to bottom, #111, #222);
   color: #f4f4f4;
