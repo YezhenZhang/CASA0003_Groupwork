@@ -15,19 +15,19 @@
       <button onclick="toggleDropdown(event)">Part 1 ▾</button>
       <div class="dropdown-content">
         <a href="#part1_cover">Brief Introduction</a>
-        <a href="#part1_network">Network</a>
-        <a href="#part1_heatmap">Heatmap</a>
-        <a href="#part1_chart">Chart</a>
+        <a href="#part1_network">Transport Network</a>
+        <a href="#part1_heatmap">Density Heatmap</a>
+        <a href="#part1_chart">Transport Volume Chart</a>
       </div>
     </div>
     <div class="dropdown">
       <button onclick="toggleDropdown(event)">Part 2 ▾</button>
       <div class="dropdown-content">
         <a href="#part2_cover">Brief Introduction</a>
-        <a href="#part2_flow">Mobility Flow</a>
-        <a href="#part2_monthly">Monthly Flow</a>
-        <a href="#part2_centrality">Centrality</a>
-        <a href="#part2_radar">Radar</a>
+        <a href="#part2_flow">Mobility Map</a>
+        <a href="#part2_monthly">Mobility Chart</a>
+        <a href="#part2_centrality">Centrality Map</a>
+        <a href="#part2_radar">Radar Chart</a>
       </div>
     </div>
     <div class="dropdown">
@@ -164,24 +164,17 @@
   <div class="conclusion-content">
     <h1>Conclusion</h1>
     <div class="conclusion-underline"></div>
-<!--
+    <p>
+      This project presents an interactive web-based platform for visualizing transport infrastructure, intercity mobility, and accessibility equity in the Greater Bay Area (GBA). It yields six key findings: (1) a core–periphery divide in infrastructure, with dense multimodal hubs in central cities but limited provision in peripheral areas; (2) diverging trends in modal throughput—rising rail usage, declining road traffic, and varied freight modes; (3) directional and temporal shifts in intercity flows driven by commuting, leisure, and holidays; (4) Guangzhou’s dominant centrality, yet high functional connectivity in select peripheral cities; (5) stark accessibility disparities, especially in inland and western districts; (6) a spatial overlap between low accessibility and low income, forming “double disadvantage” zones.
+   </p>
 
-    <h2>Limitations</h2>
-    <ul>
-      <li>The missing data can influence the evaluation of the throughput patterns at GBA. (Part 1)</li>
-      <li>Low temporal and spatial resolution. (Part 2)</li>
-      <li>The method to calculate the index of accessibility is over-simple. (Part 3)</li>
-    </ul>
+    <p>
+      However, the project has three main limitations: (1) incomplete datasets—missing annual throughput data for some years, and lacking LBS mobility data and district-level GDP per capita for Hong Kong and Macao;(2) simplified accessibility measures—excluding metro connections, service frequency, and fare affordability; and (3) minor interface issues—map zooming may disrupt user experience during scrolling. These limitations highlight the need for improved cross-boundary data sharing, comprehensive multimodal accessibility metrics, and enhanced UI control.
+    </p>
 
-    <h2>Key Findings</h2>
-    -->
-    <p>This platform addresses key questions on transport accessibility, mobility patterns, and spatial equity within the Greater Bay Area. By integrating multi-source open data and interactive mapping, it reveals how infrastructure distribution, movement intensity, and socio-economic conditions intersect.</p>
-
-    <p>The three visual modules complement each other—mapping physical networks, dynamic flows, and equity gaps—offering a comprehensive spatial understanding of regional transport. These insights hold implications for inclusive urban planning, particularly in prioritizing underserved districts.</p>
-
-    <p>However, the project faces limitations: the absence of reliable data for Hong Kong and Macao, the static nature of yearly LBS data, and the lack of multi-modal coverage. Future work may adopt higher-frequency mobility datasets and expand to multimodal or cross-border analyses. As open data initiatives grow, so does the potential for more equitable, evidence-based transport planning.</p>
-  </div>
+      </div>
 </div>
+
 
 
 <div id="reference" class="section content-section">
@@ -189,14 +182,31 @@
     <h1>Reference</h1>
     <div class="section-underline"></div>
 
-    <p>
-      [1] 
-      [2] 
-      [3]   
-      [4] 
-    </p>
+    <p>[1] Chen, Z., Li, Y. & Wang, P. (2020). Transportation Accessibility and Regional Growth in the Greater Bay Area of China. <i>Transport Res D</i>, 86, 102453. <a href="https://doi.org/10.1016/j.trd.2020.102453" target="_blank">DOI</a></p>
+
+    <p>[2] Hall, P. (2013). Looking Backward, Looking Forward. In: Neuman, M. & Hull, A. (eds.), <i>The Futures of the City Region</i>.</p>
+
+    <p>[3] Hui, E.C.M. et al. (2018). Deciphering the Spatial Structure of China's Megacity Region. <i>Cities</i>, 105. <a href="https://doi.org/10.1016/j.cities.2018.10.011" target="_blank">DOI</a></p>
+
+    <p>[4] Kirk, A. (2016). <i>Data Visualisation</i>.</p>
+
+    <p>[5] Krygier, J. & Wood, D. (2024). <i>Making Maps</i>.</p>
+
+    <p>[6] Munzner, T. (2014). <i>Visualization Analysis and Design</i>.</p>
+
+    <p>[7] Shaw, S.-L. et al. (2014). Impacts of High-Speed Rail on Network Accessibility in China. <i>J Transp Geogr</i>, 40, 112–122. <a href="https://doi.org/10.1016/j.jtrangeo.2014.03.010" target="_blank">DOI</a></p>
+
+    <p>[8] Smith, A. (2016). Visual Vocabulary. <a href="http://ft.com/vocabulary" target="_blank">ft.com/vocabulary</a></p>
+
+    <p>[9] Smith, D.A. (2016). Interactive Thematic Mapping for Socio-economic Research. <i>Comp Environ Urban Syst</i>, 57, 106–117. <a href="https://doi.org/10.1016/j.compenvurbsys.2016.01.002" target="_blank">DOI</a></p>
+
+    <p>[10] Ware, C. (2020). <i>Information Visualization: Perception for Design</i>.</p>
+
+    <p>[11] Zhang, S. et al. (2019). Travel Patterns via Inhomogeneous Poisson Models. <i>Comp Environ Urban Syst</i>, 73, 68–84. <a href="https://doi.org/10.1016/j.compenvurbsys.2018.08.005" target="_blank">DOI</a></p>
+
   </div>
 </div>
+
 
 
 <div id="acknowledgement" class="section content-section">
