@@ -178,15 +178,19 @@
 
       <div class="section-box">
         <div class="desc-text">
-          This map compares city centrality in the GBA using three indicators: <strong>Degree</strong>, <strong>Closeness</strong>, and <strong>Betweenness</strong>.
+          This page presents a Centrality Map of cities in the area, aiming to explore the structural roles and relative importance of each city. 
+          Six centrality metrics are used to capture different dimensions of network influence.
         </div>
         <ul class="desc-text" style="padding-left: 18px; margin: 0;">
-          <li><strong>Degree</strong> reflects how actively a city is connected in the regional mobility network.</li>
-          <li><strong>Closeness</strong> shows how easily a city reaches others, based on <strong>Flow</strong> and <strong>Distance</strong>.</li>
-          <li><strong>Betweenness</strong> captures how often a city acts as a bridge in shortest paths.</li>
+          <li>In-Degree: Measures the number of incoming links to a city, indicating its attractiveness or inflow strength.</li>
+          <li>Out-Degree: Measures the number of outgoing links from a city, reflecting its ability to distribute flows.</li>
+          <li>Closeness (Flow-based): Based on travel flows, this metric assesses how easily a city can reach all others on average.</li>
+          <li>Closeness (Distance-based): Based on geographic distance, this shows how spatially accessible a city is to the rest of the network.</li>
+          <li>Betweenness (Flow-based): Calculated using flow data, it reveals a city's role as a key intermediary in actual movement patterns.</li>
+          <li>Betweenness (Distance-based): Based on shortest-path routes, this indicates how frequently a city lies along the most efficient paths in the network.</li>
         </ul>
         <div class="desc-text" style="margin-top: 8px;">
-          Each circle’s color and size show the selected indicator value. Hover to see radar chart of all six metrics.
+          Use the control panel below to switch between metric groups. 
         </div>
       </div>
 
