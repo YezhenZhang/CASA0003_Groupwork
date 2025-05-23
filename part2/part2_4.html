@@ -230,7 +230,7 @@ d3.csv('data/2_6_centrality/all_normalized_with_xy.csv').then(data => {
           data: metrics,
           backgroundColor: 'rgba(255,255,255,0.1)',
           borderColor: 'rgba(255,255,255,0.8)',
-          pointRadius: 5, // ← 数值越大点越大
+          pointRadius: 5, // ← pointRadius: The larger the value, the bigger the point
           pointBackgroundColor: borderSet,
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
@@ -278,11 +278,11 @@ d3.csv('data/2_6_centrality/all_normalized_with_xy.csv').then(data => {
 
   // Reset zoom
   document.querySelector("#page4 #buttons button[data-index='all']").addEventListener("click", () => {
-    // 显示所有图表，并清除放大状态
+    // Show all charts and remove fullscreen state
     document.querySelectorAll("#page4 .chart-container").forEach((div, i) => {
       div.classList.remove("fullscreen", "hidden");
 
-      // 清除放大时设置的样式
+      // Clear styles applied during fullscreen mode
       div.style.position = "";
       div.style.top = "";
       div.style.left = "";
@@ -291,11 +291,11 @@ d3.csv('data/2_6_centrality/all_normalized_with_xy.csv').then(data => {
       div.style.zIndex = "";
       div.style.paddingBottom = "";
 
-      // 恢复城市名 label
+      // Restore city name labels
       div.querySelector('.chart-label').textContent = cityNames[i];
     });
 
-    // 所有按钮去掉 active，高亮 all 按钮
+    // Remove 'active' from all buttons, highlight 'All' button
     document.querySelectorAll("#page4 #buttons button").forEach(b => b.classList.remove("active"));
     document.querySelector("#page4 #buttons button[data-index='all']").classList.add("active");
   });
@@ -306,11 +306,11 @@ d3.csv('data/2_6_centrality/all_normalized_with_xy.csv').then(data => {
     btn.textContent = city;
     btn.setAttribute("data-index", i);
     btn.addEventListener("click", () => {
-      // 清除所有城市名标签
+      // Clear all city name labels
       document.querySelectorAll("#page4 .chart-label").forEach(label => {
         label.textContent = "";
       });
-      // 隐藏所有图表
+      // Hide all charts
       document.querySelectorAll("#page4 .chart-container").forEach(div => {
         div.classList.add("hidden");
         div.classList.remove("fullscreen");

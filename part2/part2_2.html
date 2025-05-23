@@ -145,7 +145,7 @@
   
 <h2>Monthly Flow per City (In/Out/Net)</h2>
 
-<!-- 时间选择按钮 -->
+<!-- Time selection buttons -->
 <div id="time-selector" style="text-align:center; margin-top: 10px;">
   <button class="time-btn active" data-time="monthly">Monthly</button>
   <button class="time-btn" data-time="weekly">Weekly</button>
@@ -326,10 +326,10 @@ function showCity(city, chartMap) {
   });
 }
 
-// 初始化加载
+// Initial load
 loadDataAndRender(currentTimeType);
 
-// 监听时间维度按钮
+// Listen for time dimension button clicks
 d3.selectAll(".time-btn").on("click", function () {
   d3.selectAll(".time-btn").classed("active", false);
   d3.select(this).classed("active", true);

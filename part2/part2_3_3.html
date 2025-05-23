@@ -42,7 +42,7 @@
       overflow: hidden;
     }
 
-    /* 地图容器全屏 */
+    /* Fullscreen map container */
     #page3 #comparison-container {
       position: relative;
       width: 100%;
@@ -59,7 +59,7 @@
       overflow: hidden;
     }
 
-    /* 浮动控制面板 */
+    /* Floating control panel */
     #page3 #controls {
       position: absolute;
       top: 20px;
@@ -76,7 +76,7 @@
       transition: transform 0.3s ease;
     }
 
-    /* 主标题 */
+    /* Main title */
     #page3 #controls > .main-title {
       font-size: 20px;
       font-weight: bold;
@@ -145,21 +145,21 @@
     }
 
         #controls {
-  overflow-y: auto;         /* 允许垂直滚动 */
-  max-height: calc(100vh - 40px); /* 防止超过页面可视高度 */
-  scrollbar-width: thin;    /* Firefox: 更细滚动条 */
-  scrollbar-color: #888 #333;  /* Firefox: 滚动条颜色与背景 */
+  overflow-y: auto;         
+  max-height: calc(100vh - 40px); 
+  scrollbar-width: thin;    
+  scrollbar-color: #888 #333;  
 }
 
-/* Chrome / Edge / Safari 的自定义滚动条 */
+/* Custom scrollbar */
 #controls::-webkit-scrollbar {
   width: 8px;
 }
 #controls::-webkit-scrollbar-track {
-  background: #333;       /* 滚动条轨道背景 */
+  background: #333;       
 }
 #controls::-webkit-scrollbar-thumb {
-  background-color: #888; /* 滚动条滑块颜色 */
+  background-color: #888; 
   border-radius: 4px;
 }
 #controls::-webkit-scrollbar-thumb:hover {
@@ -172,7 +172,7 @@
     <div id="map-left"></div>
     <div id="map-right"></div>
 
-    <!-- 浮动控制面板 -->
+    <!-- Floating control panel  -->
     <div id="controls">
       <div class="main-title">Centrality Map</div>
 
@@ -205,7 +205,7 @@
         <div id="legend-container"></div>
       </div>
 
-      <!-- 图表容器 -->
+      <!-- Chart container -->
 
       <div class="section-box">
           <div class="section-title">Top 3 Cities</div>
@@ -229,7 +229,7 @@
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya3M4eWR1eWtwcmwifQ.lt3QjciencUOU8o4AMJtiA';
 
-    // 初始化两个地图实例
+    // Initialize two map instances
     const mapLeft = new mapboxgl.Map({
       container: 'map-left',
       style: { version: 8, sources: {}, layers: [] },
@@ -242,17 +242,17 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
       center: [113, 23.0],
       zoom: 7
     });
-    // 启用对比滑块
+    // Enable comparison slider
     new mapboxgl.Compare(mapLeft, mapRight, '#comparison-container');
 
-    // 定义中心性指标分组
+    // Define centrality indicator groups
     const metricGroups = {
       group1: ['in_degree', 'out_degree'],
       group2: ['closeness_flow', 'closeness_distance'],
       group3: ['betweenness_flow', 'betweenness_distance']
     };
     
-    // 定义边界线数据
+    // Define boundary line data
     const cityBoundaries = {
       "type": "FeatureCollection",
       "name": "city_line",
@@ -272,9 +272,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
       ]
     }; 
     
-    // mapLeft 初始化
+    // Initialize mapLeft
     mapLeft.on('load', () => {
-      // 添加 CARTO 无标签暗色底图
+      // Add CARTO dark base map without labels
       mapLeft.addSource('carto-dark-nolabels', {
         type: 'raster',
         tiles: [
@@ -287,7 +287,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
       });
       mapLeft.addLayer({ id: 'carto-dark-nolabels', type: 'raster', source: 'carto-dark-nolabels' });
 
-      // 添加城市边界线图层
+      // Add city boundary line layer
       mapLeft.addSource('city-boundary-left', { type: 'geojson', data: cityBoundaries });
       mapLeft.addLayer({
         id: 'city-line-left',
@@ -299,14 +299,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
         }
       });
 
-      // 载入初始点数据
+      // Load initial point data
       const [left, right] = metricGroups.group1;
       updateMaps(left, right);
     });
 
-    // mapRight 初始化
+    // Initialize mapRight
     mapRight.on('load', () => {
-      // 添加 CARTO 无标签暗色底图
+      
       mapRight.addSource('carto-dark-nolabels', {
         type: 'raster',
         tiles: [
@@ -319,7 +319,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
       });
       mapRight.addLayer({ id: 'carto-dark-nolabels', type: 'raster', source: 'carto-dark-nolabels' });
 
-      // 添加城市边界线图层
+      // Add city boundary line layer
       mapRight.addSource('city-boundary-right', { type: 'geojson', data: cityBoundaries });
       mapRight.addLayer({
         id: 'city-line-right',
@@ -332,25 +332,25 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya
       });
     });
     
-    // 监听：选了哪一组中心性，更新左右图
+    // Listener: When an indicator group is selected, update both maps
    document.querySelectorAll('#metricGroupButtons button').forEach(button => {
   button.addEventListener('click', () => {
-    // 移除旧的 active class
+    // Remove previous active class
     document.querySelectorAll('#metricGroupButtons button').forEach(btn => btn.classList.remove('active'));
-    // 给当前按钮加上 active
+    // Add active class to the current button
     button.classList.add('active');
 
     const selectedGroup = button.getAttribute('data-group');
     const [left, right] = metricGroups[selectedGroup];
-    updateMaps(left, right); // ⬅️ 会自动更新圆圈样式和 tooltip
+    updateMaps(left, right); // Automatically updates circle style and tooltip
   });
 });
 
 
-    // 更新左右两个地图
+    // Update both left and right maps
 function updateMaps(leftField, rightField) {
   d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
-    // 存储数据供后续使用（如点击雷达图）
+    // Store data for later use (e.g., radar chart on click)
     data.forEach(d => {
       cityData[d.city] = {
         name: d.city,
@@ -382,7 +382,7 @@ function updateMaps(leftField, rightField) {
 
     const geojson = { type: "FeatureCollection", features };
 
-    // 左图
+    // Left map
     if (mapLeft.getSource('cities-left')) {
       mapLeft.getSource('cities-left').setData(geojson);
     } else {
@@ -401,7 +401,7 @@ function updateMaps(leftField, rightField) {
       }, 'city-line-left');
     }
 
-    // 右图
+    // Right map
     if (mapRight.getSource('cities-right')) {
       mapRight.getSource('cities-right').setData(geojson);
     } else {
@@ -423,14 +423,14 @@ function updateMaps(leftField, rightField) {
    const currentGroup = getGroupFromFields(leftField, rightField);
 updateCircleRadius(currentGroup);
 
-// ✅ 确保 tooltip 与当前字段绑定
+// Ensure tooltip is bound to current fields
 setupHoverTooltip(mapLeft, 'points-left', 'left');
 setupHoverTooltip(mapRight, 'points-right', 'right');
 
   });
 }
 
-// 辅助函数：根据字段判断属于哪个 group
+// Helper function: determine which group the fields belong to
 function getGroupFromFields(left, right) {
   if (left === 'in_degree' && right === 'out_degree') return 'group1';
   if (left === 'closeness_flow' && right === 'closeness_distance') return 'group2';
@@ -439,7 +439,7 @@ function getGroupFromFields(left, right) {
 }
 
 
-    // 定义+更新点的大小/颜色
+    // Define and update point size/color
     function updateCircleRadius(metricGroup) {
       let expressionLeft, expressionRight;
       let colorLeft, colorRight;
@@ -461,29 +461,29 @@ function getGroupFromFields(left, right) {
         colorRight = '#156ba0';
       }
 
-      // 更新地图点半径
+      // Update point radius on the map
       mapLeft.setPaintProperty('points-left', 'circle-radius', expressionLeft);
       mapRight.setPaintProperty('points-right', 'circle-radius', expressionRight);
 
-      // 更新地图点颜色
+      // Update point color on the map
       mapLeft.setPaintProperty('points-left', 'circle-color', colorLeft);
       mapRight.setPaintProperty('points-right', 'circle-color', colorRight);
 
-      // 设置边框颜色（与点颜色一致）
+      // Set border color (same as point color)
       mapLeft.setPaintProperty('points-left', 'circle-stroke-color', colorLeft);
       mapRight.setPaintProperty('points-right', 'circle-stroke-color', colorRight);
 
-      // 设置边框宽度
+      // Set border width
       mapLeft.setPaintProperty('points-left', 'circle-stroke-width', 1);
       mapRight.setPaintProperty('points-right', 'circle-stroke-width', 1);
 
-      // 设置透明度
+      // Set opacity
       mapLeft.setPaintProperty('points-left', 'circle-opacity', 0.3);
       mapRight.setPaintProperty('points-right', 'circle-opacity', 0.3);
 
-      // 动态更新 Legend
+      // Dynamically update the legend
       const legendContainer = document.getElementById('legend-container');
-      legendContainer.innerHTML = ''; // 清空旧 legend
+      legendContainer.innerHTML = ''; // Clear old legend
 
       const legendItems = {
         group1: [
@@ -509,10 +509,10 @@ function getGroupFromFields(left, right) {
     }
 
     
-    // 城市点
+    // City points
 let cityData = {};
 
-// 加载 CSV 数据，仅初始化 cityData
+// Load CSV data and initialize cityData only
 d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
   data.forEach(d => {
     cityData[d.city] = {
@@ -529,7 +529,7 @@ d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
 
       
 
-    // 监听：点击城市点，显示雷达图
+    // Listener: clicking on city point to show radar chart
     //mapLeft.on('click', e => {
     //  const features = mapLeft.queryRenderedFeatures(e.point, { layers: ['points-left'] });
     //  if (features.length > 0) {
@@ -547,7 +547,7 @@ d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
     //  }
     //});
 
-    // 定义统一的字段名映射表
+    // Define a unified field name mapping table
     const indicatorNameMap = {
       in_degree: "In-Degree",
       out_degree: "Out-Degree",
@@ -557,10 +557,10 @@ d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
       betweenness_distance: "Betweenness (Dist.)"
     };
 
-    // 悬浮：查看城市名和数值
+    // Hover: display city name and indicator value
     const tooltip = document.getElementById('tooltip');
     function setupHoverTooltip(map, layerId, side) {
-  // ✅ 先移除旧监听器，避免重复绑定
+  // Remove existing listeners to prevent duplicate binding
   map.off('mousemove', layerId);
   map.off('mouseleave', layerId);
 
@@ -595,13 +595,13 @@ d3.csv("data/2_6_centrality/all_normalized_with_xy.csv").then(data => {
 }
 
 
-    // 调用设置函数
+    // Call the tooltip setup function
     setupHoverTooltip(mapLeft, 'points-left', 'left');
     setupHoverTooltip(mapRight, 'points-right', 'right');
 
   </script>
   
-          <!-- 引入新创建的 charts.js 文件 -->
+          <!-- Import the charts.js file -->
     <script src="charts.js"></script>
   
   </body>

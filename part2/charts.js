@@ -22,10 +22,10 @@ function initializeCharts() {
     charts.push(createChart("barChart5", chartData.closeness_distance));
     charts.push(createChart("barChart6", chartData.betweenness_distance));
 
-    // 默认显示 group1
+    // Show group1 charts by default
     showChartsByGroup('group1');
 
-    // 按钮事件绑定
+    // Bind event listeners to group switch buttons
     document.querySelectorAll('#metricGroupButtons button').forEach(btn => {
         btn.addEventListener('click', () => {
             const group = btn.getAttribute('data-group');
@@ -85,7 +85,7 @@ function createChart(chartId, chartData) {
     });
 }
 
-// 显示特定 group 对应的两张图表
+// Display the two charts corresponding to the selected group
 function showChartsByGroup(groupKey) {
     const groupMap = {
         group1: ['barChart1', 'barChart2'],
@@ -93,12 +93,12 @@ function showChartsByGroup(groupKey) {
         group3: ['barChart4', 'barChart6']
     };
 
-    // 隐藏所有图表
+    // Hide all chart elements
     document.querySelectorAll('.chart').forEach(chart => {
         chart.style.display = 'none';
     });
 
-    // 显示当前 group 的图表
+    // Show charts for the current group only
     const chartsToShow = groupMap[groupKey];
     chartsToShow.forEach(id => {
         const chart = document.getElementById(id);

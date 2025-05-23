@@ -65,14 +65,14 @@
   color: white;
   padding: 16px;
   border-radius: 8px;
-  font-size: 14px; /* 正文字体大小 */
+  font-size: 14px; 
   font-family: Arial, sans-serif;
   max-width: 260px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.25);
   z-index: 10000;
 }
 
-/* 主标题 */
+/* Main section title */
 #page1 #controls > div:first-child {
   font-size: 20px;
   font-weight: bold;
@@ -145,7 +145,7 @@
   width: 16.5%;
   display: inline-block;
   text-align: center;
-  font-size: 13px; /* 原来是12px */
+  font-size: 13px; 
   color: #ccc;
 }
 
@@ -163,28 +163,28 @@
 }
 
 .desc-text {
-  font-size: 14px; /* 原来是12px */
+  font-size: 14px; 
   color: #ccc;
   line-height: 1.4;
   margin-bottom: 6px;
 }
 
 #controls {
-  overflow-y: auto;         /* 允许垂直滚动 */
-  max-height: calc(100vh - 40px); /* 防止超过页面可视高度 */
-  scrollbar-width: thin;    /* Firefox: 更细滚动条 */
-  scrollbar-color: #888 #333;  /* Firefox: 滚动条颜色与背景 */
+  overflow-y: auto;         /* Enable vertical scrolling */
+  max-height: calc(100vh - 40px); /* Prevent overflow beyond visible viewport */
+  scrollbar-width: thin;    /* thinner scrollbar */
+  scrollbar-color: #888 #333;  /* scrollbar thumb and track color */
 }
 
-/* Chrome / Edge / Safari 的自定义滚动条 */
+/* Custom scrollbar */
 #controls::-webkit-scrollbar {
   width: 8px;
 }
 #controls::-webkit-scrollbar-track {
-  background: #333;       /* 滚动条轨道背景 */
+  background: #333;       /* Scrollbar track background */
 }
 #controls::-webkit-scrollbar-thumb {
-  background-color: #888; /* 滚动条滑块颜色 */
+  background-color: #888; /* Scrollbar thumb color */
   border-radius: 4px;
 }
 #controls::-webkit-scrollbar-thumb:hover {
@@ -232,7 +232,7 @@
         <div class="section-title">Colour Scale</div>
         <div class="colour_peak row"></div>
 
-        <!-- 图例：Total flow -->
+        <!-- Legend: Total flow -->
         <div class="colour_legend" id="legend-total">
           <span class="colour_dot" style="background: #156ba0;"></span><span class="legend_value">0-30</span>
           <span class="colour_dot" style="background: #719ab4;"></span><span class="legend_value">30-100</span>
@@ -241,7 +241,7 @@
         </div>
 
 
-        <!-- 图例：Net flow -->
+        <!-- Legend: Net flow -->
         <div class="colour_legend" id="legend-net" style="display: none;">
           <span class="colour_dot" style="background: #109221;"></span><span class="legend_value">0-1</span>
           <span class="colour_dot" style="background: #5ca866;"></span><span class="legend_value">1-10</span>
@@ -270,9 +270,9 @@
 
  <script>
 
-  // ========== Flow数据文件列表 ==========
+  // ========== Flow Data File List ==========
   const flowDataFiles = [
-    // 1-12月 (每月总流量+净流量，共24份)
+    // 1–12 Months (Monthly Total Flow + Net Flow, 24 files in total)
     'data/2_4_total_flow/index-proportion_01.csv', 'data/2_5_net_flow/index-proportion_01.csv',
     'data/2_4_total_flow/index-proportion_02.csv', 'data/2_5_net_flow/index-proportion_02.csv',
     'data/2_4_total_flow/index-proportion_03.csv', 'data/2_5_net_flow/index-proportion_03.csv',
@@ -285,15 +285,15 @@
     'data/2_4_total_flow/index-proportion_10.csv', 'data/2_5_net_flow/index-proportion_10.csv',
     'data/2_4_total_flow/index-proportion_11.csv', 'data/2_5_net_flow/index-proportion_11.csv',
     'data/2_4_total_flow/index-proportion_12.csv', 'data/2_5_net_flow/index-proportion_12.csv',
-    // 工作日（总流量+净流量，共2份）
+    // Weekdays (Total Flow + Net Flow, 2 files)
     'data/2_4_total_flow/index-proportion_weekday.csv', 'data/2_5_net_flow/index-proportion_weekday.csv',
-    // 周末（总流量+净流量，共2份）
+    // Weekends (Total Flow + Net Flow, 2 files)
     'data/2_4_total_flow/index-proportion_weekend.csv', 'data/2_5_net_flow/index-proportion_weekend.csv',
-    // 假日（总流量+净流量，共2份）
+    // Holidays (Total Flow + Net Flow, 2 files)
     'data/2_4_total_flow/index-proportion_holiday.csv', 'data/2_5_net_flow/index-proportion_holiday.csv'
   ];  
 
-  // ========== 城市坐标 ==========
+  // ========== City Coordinates ==========
   const cityCoordinates = {
         "DongGuan": [113.875, 22.93449974],
         "FoShan": [112.944002, 23.00659943],
@@ -306,7 +306,7 @@
         "ZhuHai": [113.3619995, 22.15180106]
       };
     
-  // ===== 定义线条颜色 =====
+  // ===== Define Line Colors =====
   const totalFlowColorStops = [
     [0,   '#156ba0'],
     [30, '#719ab4'],
@@ -323,7 +323,7 @@
     [40, '#d1ffd8']
   ];
 
-  // ===== 线条颜色：构造 Mapbox 'step' =====
+  // ===== Line Color: Construct Mapbox 'step' Expression =====
   function buildStepColorExpression(stops) {
     const expr = ['step', ['get', 'flow_value'], stops[0][1]];
     for (let i = 1; i < stops.length; i++) {
@@ -332,7 +332,7 @@
     return expr;
   }
 
-  // ===== 线条颜色：匹配颜色值 =====
+  // ===== Line Color: Match Color Values =====
   function getColorForValue(value, stops) {
     for (let i = stops.length - 1; i >= 0; i--) {
       if (value >= stops[i][0]) return stops[i][1];
@@ -340,18 +340,18 @@
     return stops[0][1];
   }
 
-  // ========== 全局变量 ==========
+  // ========== Global Variables ==========
   let flowLayers = [];
   let currentPage = 1;
   let currentMonth = 1;
   let currentFlowType = 'total';
   let selectedCity = null;
-  let isPlaying = false; // 是否正在播放
-  let playInterval = null; // 保存定时器ID
+  let isPlaying = false; 
+  let playInterval = null; // Store Timer ID
     
     
-  // ========== 加载地图 ==========
-   mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya3M4eWR1eWtwcmwifQ.lt3QjciencUOU8o4AMJtiA'; // 换成你自己的Token
+  // ========== Load Map ==========
+   mapboxgl.accessToken = 'pk.eyJ1IjoieWV6aGVuLXpoYW5nIiwiYSI6ImNtNjgyYmdqeDA5czkya3M4eWR1eWtwcmwifQ.lt3QjciencUOU8o4AMJtiA'; 
     const map = new mapboxgl.Map({
     container: 'map',
     center: [113.0, 23.1],
@@ -382,7 +382,7 @@
       paint: {}
     });
 
-    // 加载边界线
+    // Load Boundary Lines
     map.addSource('line-source', {
       type: 'geojson',
       data: 'data/1_3_boundary/city_line.geojson'
@@ -396,7 +396,7 @@
         'line-width': 1.5
       }
     });
-    // 加载城市点
+    // Load City Points
     map.addSource('city-points', {
       type: 'geojson',
       data: {
@@ -442,50 +442,50 @@
     for (const { element, coord } of Object.values(cityLabelElements)) {
       const pos = map.project(coord);
       element.style.left = `${pos.x}px`;
-      element.style.top = `${pos.y - 15}px`; // 上移一点避免遮挡
+      element.style.top = `${pos.y - 15}px`; // Move Up Slightly to Avoid Overlap
     }
   }
 
   map.on('move', updateLabelPositions);
   map.on('zoom', updateLabelPositions);
   map.on('resize', updateLabelPositions);
-  updateLabelPositions(); // 初始更新
+  updateLabelPositions(); // Initial Update
 }
 
       
       
       
   
-  // 监听：点击城市点
+  // Listener: Click on a city point
   map.on('click', 'city-points-layer', (e) => {
     const city = e.features[0].properties.city;
     selectedCity = city;
-    loadFlowData(); // 重新加载，只显示相关flow
+    loadFlowData(); // Reload and show only related flow
   });
 
-  // 监听：点击空白处
+  // Listener: Click on blank space
   map.on('click', (e) => {
     const features = map.queryRenderedFeatures(e.point, {
       layers: ['city-points-layer']
     });
     if (features.length === 0 && selectedCity !== null) {
       selectedCity = null;
-      loadFlowData(); // 恢复全部flow
+      loadFlowData(); // Restore all flow data
     }
   });
 
-    loadFlowData(); // 初始加载
-      addCityLabels();  // ✅ 显示城市名称
+    loadFlowData(); // Initial load
+      addCityLabels();  // Display city names
 
   });
 
-  // 监听：月/工作日/周末/假日
+  // Listener: Month / Weekday / Weekend / Holiday
   document.getElementById('pageSelector').addEventListener('change', (e) => {
     currentPage = parseInt(e.target.value);
     loadFlowData(); 
   });
 
-  // 监听：总流量/净流量
+  // Listener: Total Flow / Net Flow toggle
   //document.getElementById('flowTypeSelector').addEventListener('change', (e) => {
   //  currentFlowType = e.target.value;
   //  loadFlowData();
@@ -494,7 +494,7 @@
   document.getElementById('flowTypeSelector').addEventListener('change', (e) => {
   currentFlowType = e.target.value;
 
-  // 显示/隐藏图例
+  // Toggle legend display
   if (currentFlowType === 'total') {
     document.getElementById('legend-total').style.display = 'flex';
     document.getElementById('legend-net').style.display = 'none';
@@ -506,7 +506,7 @@
   loadFlowData();
 });
 
-  // 监听：月份滑动器
+  // Listener: Month slider
   const monthNames = [
     'Jan 2024', 'Feb 2024', 'Mar 2024', 'Apr 2024',
     'May 2024', 'Jun 2024', 'Jul 2024', 'Aug 2024',
@@ -514,8 +514,8 @@
   ];
 
   document.getElementById('monthSlider').addEventListener('input', (e) => {
-    currentMonth = parseInt(e.target.value); // 假设滑块值是 1-12
-    const displayMonth = monthNames[currentMonth - 1]; // 数组从0开始
+    currentMonth = parseInt(e.target.value); // Assuming slider values are 1–12
+    const displayMonth = monthNames[currentMonth - 1]; // Adjust index
 
     document.getElementById('slider_value_text').innerText = displayMonth;
     if (currentPage === 1) {
@@ -523,7 +523,7 @@
     }
   });
 
-  // 更新：播放器功能实现
+  // Listener: Playback functionality
   document.getElementById('button_play').addEventListener('click', () => {
     document.getElementById('button_play').hidden = true;
     document.getElementById('button_pause').hidden = false;
@@ -538,7 +538,7 @@
       if (currentMonth < 12) {
         currentMonth++;
       } else {
-        // 到12月后停止播放，并重置为1月
+        // Stop at December and reset to January
         clearInterval(playInterval);
         playInterval = null;
         isPlaying = false;
@@ -563,7 +563,7 @@
     document.getElementById('button_pause').hidden = true;
   });
     
-  // 更新：chart
+  // Chart update logic
   let barChart;
   function getBarColor(value, colorStops) {
     for (let i = colorStops.length - 1; i >= 0; i--) {
@@ -597,14 +597,14 @@
         indexAxis: 'y',
         plugins: {
           legend: {
-            display: false  // 隐藏图例
+            display: false  // Hide legend
           }
         },
         scales: {
           y: {
             ticks: {
               font: {
-                size: 10       // y轴文字大小
+                size: 10       // Y-axis label size
               }
             }
           },
@@ -613,7 +613,7 @@
             max: isTotalFlow ? 800 : 80,
             ticks: {
               font: {
-                size: 10       // x轴文字大小
+                size: 10       // X-axis label size
               }
             }
           }
@@ -622,16 +622,16 @@
     });
   }
 
-  // ========== 加载Flow数据 ==========
+  // ========== Load Flow Data ==========
   function loadFlowData() {
-  // 清除旧的 flow layer 
+  // Clear old flow layers
   flowLayers.forEach(id => {
     if (map.getLayer(id)) map.removeLayer(id);
     if (map.getSource(id)) map.removeSource(id);
   });
   flowLayers = [];
     
-  // 选择要加载的 CSV
+  // Select the CSV to load
   let index;
   if (currentPage === 1) {
     index = (currentMonth - 1) * 2 + (currentFlowType === 'total' ? 0 : 1);
@@ -643,7 +643,7 @@
     download: true,
     header: true,
     complete: function(results) {
-      const isTotalFlow = (index % 2 === 0); // 偶数索引为 total
+      const isTotalFlow = (index % 2 === 0); // Even index represents total flow
       const features = results.data.map(row => {
         const originCity = isTotalFlow ? row.city1 : row.Origin;
         const destCity = isTotalFlow ? row.city2 : row.Destination;
@@ -657,7 +657,7 @@
           return null;
         }
 
-        // 选择城市点
+        // select city 
         if (selectedCity !== null) {
           if (originCity !== selectedCity && destCity !== selectedCity) return null;
         }
@@ -674,12 +674,12 @@
             flow_value: isNaN(flow) ? 0 : flow
           }
         };
-      }).filter(f => f !== null); // 移除无效 feature
+      }).filter(f => f !== null); //  Remove invalid features
 
-      // 按 flow_value 降序排序（数值大的在最上面）
+      // Sort by flow_value descending (higher values on top)
       features.sort((a, b) => b.properties.flow_value - a.properties.flow_value);
 
-      // 加载到地图 
+      // Load to map
       const flowGeojson = {
         type: 'FeatureCollection',
         features: features
@@ -719,7 +719,7 @@
       });
       flowLayers.push(layerId, sourceId);
       
-      // 在 net flow 模式下启用粒子动画
+      // Enable particle animation in net flow mode
       if (!isTotalFlow) {
         generateParticlesFromGeojson(flowGeojson);
       } else {
@@ -729,15 +729,15 @@
         }
       }
       
-      map.moveLayer('city-points-layer'); // 保证城市点在最顶层
+      map.moveLayer('city-points-layer'); // Ensure city points are on top layer
 
-      // 提取流量前3名并绘图
+      // Extract top 3 flows and plot chart
       const top3 = results.data
         .map(row => {
           const flow = isTotalFlow ? +row.scaled_flow : +row.net_flow;
           const origin = isTotalFlow ? row.city1 : row.Origin;
           const dest = isTotalFlow ? row.city2 : row.Destination;
-          const label = isTotalFlow ? `${origin} - ${dest}` : `${origin} → ${dest}`;  // 判断连接符
+          const label = isTotalFlow ? `${origin} - ${dest}` : `${origin} → ${dest}`;  
           return { label, value: flow };
         })
         .filter(d => {
@@ -749,22 +749,22 @@
 
       const labels = top3.map(d => d.label);
       const values = top3.map(d => d.value);
-      updateBarChart(labels, values, isTotalFlow);  // 传入 isTotalFlow
+      updateBarChart(labels, values, isTotalFlow);  // Pass isTotalFlow as parameter
 
-      // 设置悬浮
+      // Set tooltip (hover interaction)
       map.on('mouseenter', layerId, (e) => {
         map.getCanvas().style.cursor = 'pointer';
         const props = e.features[0].properties;
         let popupHtml = '';
 
         if (isTotalFlow) {
-        // 总流量：显示城市对
+        // Total flow: show city pair
         popupHtml = `
           <b>City pair:</b> ${props.origin_city} - ${props.destination_city}<br/>
           <b> Total Flow:</b> ${props.flow_value}
         `;
       } else {
-        // 净流量：显示有方向的
+        // Net flow: show directional pair
         popupHtml = `
           <b>Origin:</b> ${props.origin_city}<br/>
           <b>Destination:</b> ${props.destination_city}<br/>
@@ -783,14 +783,14 @@
   });
 }
   
-  // 创建悬浮
+  // Create hover popup
   const popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
   });
 
  let particleCanvas, particles = [];
-let flowGeojson = null; // 保存原始 GeoJSON
+let flowGeojson = null; // Save original GeoJSON
 
 function generateParticlesFromGeojson(geojson) {
   flowGeojson = geojson;
@@ -872,7 +872,7 @@ function updateParticlePaths(geojson) {
   });
 }
 
-// 同步更新：拖动、缩放、缩放动画、窗口大小改变时更新粒子路径
+// Sync update: on drag, zoom, zoom end, or resize
 map.on('move', () => updateParticlePaths(flowGeojson));
 map.on('zoom', () => updateParticlePaths(flowGeojson));
 map.on('zoomend', () => updateParticlePaths(flowGeojson));
