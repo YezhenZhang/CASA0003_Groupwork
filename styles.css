@@ -284,7 +284,7 @@ iframe {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: left;
   padding: 100px 10vw;
   overflow-y: auto;
 }
@@ -303,7 +303,7 @@ iframe {
   margin-bottom: 24px;
 }
 .part-cover-underline {
-  width: 500px;
+  width: 900px;
   height: 4px;
   background-color: #aad3de;
   margin: 0 auto 30px auto;
